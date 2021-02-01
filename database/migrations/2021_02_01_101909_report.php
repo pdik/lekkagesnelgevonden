@@ -13,7 +13,16 @@ class Report extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('report', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->unsignedBigInteger('customer_id')->index();
+            $table->string('status')->default('1');
+            $table->json('data');
+            $table->unsignedBigInteger('created_by')->index();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('customer_id')->references('id')->on('customers');
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class Report extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('report');
     }
 }

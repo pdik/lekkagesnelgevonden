@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Quotation extends Migration
+class Customers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class Quotation extends Migration
      */
     public function up()
     {
-        Schema::create('quotation', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_id');
+            $table->string('first_name');
+            $table->string('last_name')->nullable();
+            $table->string('adres')->nullable();
+            $table->string('placename')->nullable();
+            $table->string('postalcode')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class Quotation extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation');
+        Schema::dropIfExists('customers');
     }
 }

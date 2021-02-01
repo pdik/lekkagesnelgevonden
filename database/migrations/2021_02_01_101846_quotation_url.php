@@ -13,7 +13,12 @@ class QuotationUrl extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('quotation_url', function (Blueprint $table) {
+            $table->string('token')->primary()->unique(); //Uniqe token
+            $table->unsignedBigInteger('quotation_id');
+            $table->string('tstamp')->nullable(); //Created time stamp
+            $table->foreign('quotation_id')->references('id')->on('quotation')->onDelete('cascade');
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class QuotationUrl extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('quotation_url');
     }
 }

@@ -13,7 +13,13 @@ class ReportRows extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('report_rows', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('method_id')->index();
+            $table->mediumText('text');
+            $table->unsignedBigInteger('report_id')->index();
+            $table->foreign('report_id')->references('id')->on('report')->onDelete('cascade');
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class ReportRows extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('report_rows');
     }
 }
