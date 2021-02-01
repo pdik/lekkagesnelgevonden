@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 });
-
-Route::middleware(['auth:sanctum', 'verified'], function (){
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
+    Route::get('rapport', [\App\Http\Controllers\ReportController::class])->name('rapport.get');
+    Route::get('klant', [\App\Http\Controllers\CustomersController::class])->name('klant.get');
 });
