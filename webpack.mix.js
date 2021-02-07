@@ -57,7 +57,9 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
         require('autoprefixer'),
     ]);
-
+mix.scripts([
+    'resources/js/functions.js'],
+    'public/js/functions.js');
 if (mix.inProduction()) {
     mix.version();
 }

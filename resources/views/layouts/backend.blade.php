@@ -26,7 +26,7 @@
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
         @yield('css_after')
-
+        @livewireStyles
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
     </head>
@@ -296,26 +296,26 @@
 
                             <li class="nav-main-heading">Klanten</li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="/admin/klanten/nieuw">
+                                <a class="nav-main-link" href="{{route('klanten.create')}}">
                                     <i class="nav-main-link-icon fa fa-user-plus"></i>
                                     <span class="nav-main-link-name">Nieuw</span>
                                 </a>
                             </li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="/admin/rapport/maken">
+                                <a class="nav-main-link" href="{{route('klanten.index')}}">
                                     <i class="nav-main-link-icon fa fa-user-edit"></i>
-                                    <span class="nav-main-link-name">Bewerken</span>
+                                    <span class="nav-main-link-name">Overzicht</span>
                                 </a>
                             </li>
                             <li class="nav-main-heading">Rapporten</li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="/admin/rapport/maken">
+                                <a class="nav-main-link" href="{{route('rapport.create')}}">
                                     <i class="nav-main-link-icon si si-docs"></i>
                                     <span class="nav-main-link-name">Maken</span>
                                 </a>
                             </li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="/admin/rapport/maken">
+                                <a class="nav-main-link" href="{{route('rapport.index')}}">
                                     <i class="nav-main-link-icon fa fa-edit"></i>
                                     <span class="nav-main-link-name">Overzicht</span>
                                 </a>
@@ -401,7 +401,8 @@
                                    Gebruiker opties
                                 </div>
                                 <div class="p-2">
-                                    <a class="dropdown-item" href="javascript:void(0)">
+
+                                    <a class="dropdown-item" href="/user/profile">
                                         <i class="far fa-fw fa-user mr-1"></i> Profiel
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
@@ -421,9 +422,13 @@
                                     <!-- END Side Overlay -->
 
                                     <div role="separator" class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
+                                    <form action="{{route('logout')}}" method="post">
+                                        @csrf
+                                        @method('POST')
+                                    <a class="dropdown-item"type="submit"  onclick="event.preventDefault(); this.closest('form').submit();">
                                         <i class="far fa-fw fa-arrow-alt-circle-left mr-1"></i> Log uit
                                     </a>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -451,66 +456,17 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="text-dark media py-2" href="javascript:void(0)">
-                                            <div class="mx-3">
-                                                <i class="fa fa-fw fa-user-plus text-info"></i>
-                                            </div>
-                                            <div class="media-body font-size-sm pr-2">
-                                                <div class="font-w600">New Subscriber was added! You now have 2580!</div>
-                                                <div class="text-muted font-italic">10 min ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="text-dark media py-2" href="javascript:void(0)">
-                                            <div class="mx-3">
-                                                <i class="fa fa-fw fa-times-circle text-danger"></i>
-                                            </div>
-                                            <div class="media-body font-size-sm pr-2">
-                                                <div class="font-w600">Server backup failed to complete!</div>
-                                                <div class="text-muted font-italic">30 min ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="text-dark media py-2" href="javascript:void(0)">
-                                            <div class="mx-3">
-                                                <i class="fa fa-fw fa-exclamation-circle text-warning"></i>
-                                            </div>
-                                            <div class="media-body font-size-sm pr-2">
-                                                <div class="font-w600">You are running out of space. Please consider upgrading your plan.</div>
-                                                <div class="text-muted font-italic">1 hour ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="text-dark media py-2" href="javascript:void(0)">
-                                            <div class="mx-3">
-                                                <i class="fa fa-fw fa-plus-circle text-primary"></i>
-                                            </div>
-                                            <div class="media-body font-size-sm pr-2">
-                                                <div class="font-w600">New Sale! + $30</div>
-                                                <div class="text-muted font-italic">2 hours ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
                                 </ul>
                                 <div class="p-2 border-top">
                                     <a class="btn btn-light btn-block text-center" href="javascript:void(0)">
-                                        <i class="fa fa-fw fa-eye mr-1"></i> View All
+                                        <i class="fa fa-fw fa-eye mr-1"></i> Bekijk alles
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- END Notifications Dropdown -->
 
-                        <!-- Toggle Side Overlay -->
-                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <button type="button" class="btn btn-dual" data-toggle="layout" data-action="side_overlay_toggle">
-                            <i class="far fa-fw fa-list-alt"></i>
-                        </button>
-                        <!-- END Toggle Side Overlay -->
+
                     </div>
                     <!-- END Right Section -->
                 </div>
@@ -573,10 +529,25 @@
 
         <!-- Dashmix Core JS -->
         <script src="{{ mix('js/dashmix.app.js') }}"></script>
-
+        <script src="{{ mix('js/functions.js') }}"></script>
+        <script src="{{ asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+{{--        <script src="{{ asset('js/pages/be_comp_chat.js')}}"></script>--}}
+{{--        <script src="{{ asset('js/plugins/cropperjs/cropper.js')}}"></script>--}}
+{{--        <script src="{{asset('js/pages/be_comp_image_cropper.js')}}"></script>--}}
         <!-- Laravel Scaffolding JS -->
         <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
-
         @yield('js_after')
+        @livewireScripts
+        <script>
+            $(document).ready(function() {
+
+                @if(session('status'))
+                Dashmix.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: '{{ session('failed') }}'});
+                @endif
+                @if(session('failed'))
+                Dashmix.helpers('notify', {type: 'danger', icon: 'fa fa-check mr-1', message: '{{ session('failed') }}'});
+                @endif
+            });
+        </script>
     </body>
 </html>

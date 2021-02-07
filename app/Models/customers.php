@@ -15,4 +15,8 @@ class customers extends Model
     public function reports(){
         return  $this->hasMany(report::class,'id','customer_id');
     }
+
+    public function contact(){
+        return $this->hasManyThrough(Contact::class,Contact_options::class);
+    }
 }

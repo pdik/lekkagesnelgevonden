@@ -7,7 +7,7 @@
                                             <i class="fa fa-search"></i>
                                         </span>
                     </div>
-                    <input wire:model="search" type="text" class="form-control border-left-0" id="dm-projects-search" name="dm-projects-search" placeholder="Zoek rapporten..">
+                    <input  wire:model="searchTerm" type="text" class="form-control border-left-0" id="dm-projects-search" name="dm-projects-search" placeholder="Zoek rapporten..">
                 </div>
             </div>
             <div class="col-sm-6 col-xl-3 offset-xl-6">
@@ -66,7 +66,7 @@
                     <div class="block-content block-content-full">
                         <div class="row gutters-tiny">
                             <div class="col-6">
-                                <a class="btn btn-block btn-alt-primary" href="{{ route('rapport.get',['id'=> $report->id]) }}">
+                                <a class="btn btn-block btn-alt-primary" href="{{ route('rapport.show',$report) }}">
                                     <i class="fa fa-eye mr-1 opacity-50"></i> Bekijk
                                 </a>
                             </div>
@@ -81,8 +81,6 @@
                 <!-- END Project #1 -->
             </div>
         @endforeach
-
+            {{ $reports->links() }}
     </div>
-
-    {{ $reports->links() }}
 </div>

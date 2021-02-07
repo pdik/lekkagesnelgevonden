@@ -44,9 +44,10 @@ class ReportController extends Controller
      * @param  \App\Models\report  $report
      * @return \Illuminate\Http\Response
      */
-    public function show(report $report)
+    public function show($id)
     {
-        //
+       $report = report::find($id);
+       dd($report);
     }
 
     /**

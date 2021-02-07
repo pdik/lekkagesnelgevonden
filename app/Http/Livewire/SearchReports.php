@@ -8,28 +8,21 @@ use Livewire\WithPagination;
 class SearchReports extends Component
 {
     use WithPagination;
-    public $search;
-    public $report;
+
+    public $searchTerm;
     public $page = 1;
 
 
     protected $paginationTheme = 'bootstrap';
-    protected $queryString = [
-        'report',
-        'search' => ['except' => ''],
-        'page' => ['except' => 1],
-    ];
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+
     public function render()
     {
+        $searchTerm = '%'.$this->searchTerm.'%';
         return view('livewire.search-reports', [
-            'reports' => report::wherehas('customer', function($query){
-            $query->where('first_name', 'LIKE', '%'. $this->search. '%');
-         })->paginate(10)
+            'reports' => report::wherehas('customer', function($query) use($searchTerm){
+                $query->where('first_name', 'LIKE', $searchTerm)->orWhere('last_name', 'LIKE', $searchTerm)->orWhere('adres', 'LIKE', $searchTerm)->orWhere('postalcode', 'LIKE', $searchTerm)->orWhere('placename', 'LIKE', $searchTerm);
+            })->paginate()
         ]);
     }
 }

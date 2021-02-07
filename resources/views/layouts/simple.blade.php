@@ -26,7 +26,7 @@
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
         @yield('css_after')
-
+        @livewireStyles
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
     </head>
@@ -95,5 +95,6 @@
         <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script>  -->
 
         @yield('js_after')
+        @livewireScripts
     </body>
 </html>

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class report_rows_images extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 }

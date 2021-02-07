@@ -1,6 +1,14 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Http\Controllers\CurrentTeamController;
+use Laravel\Jetstream\Http\Controllers\Livewire\ApiTokenController;
+use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
+use Laravel\Jetstream\Http\Controllers\Livewire\TeamController;
+use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
+use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
+use Laravel\Jetstream\Http\Controllers\TeamInvitationController;
+use Laravel\Jetstream\Jetstream;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +24,31 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 });
-Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::get('rapport', [\App\Http\Controllers\ReportController::class])->name('rapport.get');
-    Route::get('klant', [\App\Http\Controllers\CustomersController::class])->name('klant.get');
+
+
+Route::group(['middleware' => config('jetstream.middleware', ['web'])], function () {
+    if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {
+        Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])->name('terms.show');
+        Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])->name('policy.show');
+    }
+
+    Route::group(['middleware' => ['auth', 'verified']], function () {
+        // User & Profile...
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+        Route::resources([
+            'rapport' => \App\Http\Controllers\ReportController::class,
+            'klanten' => \App\Http\Controllers\CustomersController::class
+        ]);
+
+        Route::get('/user/profile', [UserProfileController::class, 'show'])
+            ->name('profile.show');
+
+        // API...
+        if (Jetstream::hasApiFeatures()) {
+            Route::get('/user/api-tokens', [ApiTokenController::class, 'index'])->name('api-tokens.index');
+        }
+
+    });
 });
