@@ -82,14 +82,14 @@
                                 <tr id="row_1">
                                     <td>
                                         <div class="form-group">
-                                            <select class="form-control " data-row-id="row_1" id="contact_type_1" name="contact_type[]" style="width:100%;">
+                                            <select class="form-control " data-row-id="row_1" id="contact_type_1" name="detial[]" style="width:100%;">
                                                 @foreach($contact_options as $options)
                                                 <option value="{{ $options->id }}">{{ $options->title }}</option>
                                                 @endforeach
 
                                             </select><span class="material-input"></span></div>
                                     </td>
-                                    <td><div class="form-group is-empty"><input type="text" name="contact_value[]" id="contact_value_1" class="form-control" value="" autocomplete="off"><span class="material-input"></span></div></td>
+                                    <td><div class="form-group is-empty"><input type="text" name="value[]" id="contact_value_1" class="form-control" value="" autocomplete="off"><span class="material-input"></span></div></td>
 
 
                                     <td><button type="button" class="btn btn-danger" onclick="removeRow('customer_detials','1')"><i class="fa fa-archive"></i></button></td>

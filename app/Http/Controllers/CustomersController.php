@@ -31,7 +31,6 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('customer_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $options = Contact_options::all();
         return view('customers.create', ['contact_options' => $options]);
     }
@@ -44,19 +43,16 @@ class CustomersController extends Controller
      */
     public function store(StoreCustomer $cRequest)
     {
-        abort_if(Gate::denies('customer_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-       // dd($cRequest);
-        //dd($cRequest->all());
         $customer = customers::create($cRequest->all());
         $contact_count = count($cRequest['contact_type']);
 
         for($i =0; $i < $contact_count; $i ++){
-            echo $cRequest['contact_type'][$i]. " ". $cRequest['contact_value'][$i]."<br>";
+            //echo $cRequest['contact_type'][$i]. " ". $cRequest['contact_value'][$i]."<br>";
             Contact::create([
                 'customer_id' => $customer->id,
-                'contact_option_id' => $cRequest['contact_type'][$i],
-                'data'=> $cRequest['contact_value'][$i]
+                'contact_option_id' => $cRequest['detial'][$i],
+                'data'=> $cRequest['value'][$i]
             ]);
 
         }
@@ -108,9 +104,6 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        if (! Gate::allows('customer_delete')) {
-            return abort(401);
-        }
        $customer =  customers::find($id);
         $customer->delete();
         return redirect(route('dashboard'))->with('status','Klant is succesvol aangemaakt');

@@ -14,11 +14,7 @@ class StoreCustomer extends FormRequest
      */
     public function authorize()
     {
-          if(Gate::denies('customer_create')) {
-              return false;
-          }else{
-              return true;
-          }
+       return true;
     }
 
     /**

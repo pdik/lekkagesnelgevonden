@@ -79,7 +79,7 @@
             'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
             'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
         -->
-        <div id="page-container">
+        <div id="page-container" class="enable-cookies">
             <!-- Main Container -->
             <main id="main-container">
                 @yield('content')

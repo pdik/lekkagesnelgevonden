@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+/**
+ * Get All detials options
+ */
+Route::prefix('v1')->group(function () {
+    Route::get('/users', function () {
+        // Matches The "/admin/users" URL
+    });
+    Route::get('/detials/contact', [\App\Http\Controllers\Api\V1\DetialsController::class,'index']);
+
+});
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
