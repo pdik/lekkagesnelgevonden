@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCustomer;
+use App\Http\Requests\UpdateCustomer;
 use App\Models\Contact;
 use App\Models\Contact_options;
 use App\Models\customers;
@@ -81,7 +82,8 @@ class CustomersController extends Controller
     {
         //Find customer
         $customer =  customers::findOrFail($id);
-        return view('customers.show', compact('customer'));
+        $options = Contact_options::all();
+        return view('customers.show', ['customer'=> $customer, 'options'=> $options]);
     }
 
     /**
@@ -91,9 +93,23 @@ class CustomersController extends Controller
      * @param  \App\Models\customers  $customers
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, customers $customers)
+    public function update(UpdateCustomer $request, $id)
     {
-        //
+        $data = $request->validated();
+        $customer = customers::find($id);
+        $customer->update($data);
+        $count = count($request->value);
+        Contact::where('customer_id', $customer->id)->delete();
+        for($i =0; $i < $count; $i ++){
+
+              Contact::create([
+                  'contact_option_id' => $data['detial'][$i],
+                  'customer_id'       => $customer->id,
+                  'data'              => $data['value'][$i],
+                  'updated_at'        => now()
+              ]);
+          }
+          return redirect(route('klanten.edit', ['klanten'=> $customer->id]))->with('status','Klant Geupdate');
     }
 
     /**
@@ -108,4 +124,5 @@ class CustomersController extends Controller
         $customer->delete();
         return redirect(route('dashboard'))->with('status','Klant is succesvol aangemaakt');
     }
+
 }

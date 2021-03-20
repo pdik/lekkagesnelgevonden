@@ -255,5 +255,6 @@ return [
     'selected'                             => 'Geselecteerd',
     'methods'                              => 'Methodes',
     'next'                                 => 'Volgende',
-    'prev'                                 => 'Vorige'
+    'prev'                                 => 'Vorige',
+    'detials'                              => 'Detials'
 ];

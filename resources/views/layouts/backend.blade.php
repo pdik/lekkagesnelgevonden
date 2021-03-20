@@ -542,7 +542,7 @@
             $(document).ready(function() {
 
                 @if(session('status'))
-                Dashmix.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: '{{ session('failed') }}'});
+                Dashmix.helpers('notify', {type: 'success', icon: 'fa fa-check mr-1', message: '{{ session('status') }}'});
                 @endif
                 @if(session('failed'))
                 Dashmix.helpers('notify', {type: 'danger', icon: 'fa fa-check mr-1', message: '{{ session('failed') }}'});
