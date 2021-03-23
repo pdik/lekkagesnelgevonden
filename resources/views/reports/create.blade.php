@@ -3,6 +3,7 @@
 @section('css_after')
     <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.css') }}">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="{{ asset('js/plugins/dropzone/min/dropzone.min.css')}}">
 @endsection
 @section('js_after')
     <!-- Wizard JS Plugins -->
@@ -11,11 +12,13 @@
     <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
     <script src="{{ asset('js/pages/be_forms_wizard.js') }}"></script>
     <script src="{{ asset('js/plugins/select2/js/select2.js') }}"></script>
+    <script src="{{ asset('js/plugins/cropperjs/cropper.js') }}"></script>
+    <script src="{{asset('js/plugins/dropzone/min/dropzone.min.js')}}"></script>
     <script>
         $(document).ready(function() {
             jQuery(function(){
-
                 Dashmix.helpers('select2');
+                Dashmix.helpers('ckeditor');
             });
         });
     </script>
@@ -37,7 +40,7 @@
                         <a class="nav-link" href="#wizard-simple2-step3" data-toggle="tab">3. Eind oordeel</a>
                     </li>
                 </ul>
-                <form action="{{ route('rapport.store') }}" method="POST">
+                <form action="{{ route('rapport.store') }}" class="" method="POST">
                     @csrf
                     <div class="block-content block-content-full tab-content" style="min-height: 290px;">
                         <div class="tab-pane active" id="wizard-simple2-step1" role="tabpanel">
@@ -51,8 +54,9 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="wizard-simple2-lastname">Reden onderzoek</label>
-                                <textarea id="js-ckeditor5-classic" name="reason">{{ old('reason',__('global.description')) }}</textarea>
+                                <label for="js-ckeditor">Reden onderzoek</label><br>
+                                <textarea id="js-ckeditor" rows="5" cols="100" name="reason">{{ old('reason',__('global.description')) }}</textarea>
+
                             </div>
                         </div>
                         <div class="tab-pane" id="wizard-simple2-step2" role="tabpanel">
@@ -86,12 +90,3 @@
     </div>
 @endsection
 
-@push('js_after')
-
-       <!-- Page JS Helpers (CKEditor 5 plugins) -->
-    <script>
-        jQuery(function(){
-            Dashmix.helpers('ckeditor5');
-        });
-    </script>
-@endpush

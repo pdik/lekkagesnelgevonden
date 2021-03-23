@@ -13,7 +13,7 @@
                 </h2>
                 <span class="m-2 d-inline-block invisible" data-toggle="appear" data-timeout="300">
                     <a class="btn btn-alt-primary px-4 py-3" href="/dashboard">
-                        <i class="fa fa-fw fa-sign-in-alt mr-1"></i> Login?
+                        <i class="fa fa-fw fa-sign-in-alt mr-1"></i> Login!
                     </a>
                 </span>
             </div>

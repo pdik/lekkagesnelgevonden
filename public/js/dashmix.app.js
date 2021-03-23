@@ -1666,6 +1666,7 @@ var Template = /*#__PURE__*/function () {
       var cookies = this._lPage.hasClass('enable-cookies') ? true : false; // If cookies are enabled
 
       if (cookies) {
+        console.log('Cookies enabled');
         var themeName = Cookies.get('dashmixThemeName') || false; // Update color theme
 
         if (themeName) {

@@ -226,6 +226,7 @@ export default class Template {
 
         // If cookies are enabled
         if (cookies) {
+            console.log('Cookies enabled');
             let themeName  = Cookies.get('dashmixThemeName') || false;
 
             // Update color theme

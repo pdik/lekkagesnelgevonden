@@ -3,7 +3,7 @@
         <div class="js-tasks">
             <livewire:search.items-component
                 :name="'search'"
-                :function="'updateValues'"
+                :function="'update'"
                 :search="$search"
             />
 

@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\Traits\WithUpdateValues;
+use App\Http\Livewire\Traits\WithUpdate;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Methods;
 class Chooser extends Component
 {
     use WithPagination;
-    use WithUpdateValues;
+    use WithUpdate;
 
     /**
      * Transition status.

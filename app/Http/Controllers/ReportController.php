@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\customers;
 use App\Models\report;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('reports.create', ['customers' => customers::all(),
+        ]);
     }
 
     /**
