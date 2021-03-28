@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
-    public $table = 'contact';
+    public $table = 'customer_detials';
     protected $fillable = ['contact_option_id','data','customer_id'];
+    public $timestamps = false;
     protected $primaryKey = 'id';
     public function customer(){
         return  $this->belongsToMany(customers::class);

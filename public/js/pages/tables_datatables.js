@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
 /*!*************************************************!*\
   !*** ./resources/js/pages/tables_datatables.js ***!
   \*************************************************/
@@ -21,12 +22,12 @@ var pageTablesDatatables = /*#__PURE__*/function () {
 
   _createClass(pageTablesDatatables, null, [{
     key: "initDataTables",
-
+    value:
     /*
      * Init DataTables functionality
      *
      */
-    value: function initDataTables() {
+    function initDataTables() {
       // Override a few default classes
       jQuery.extend(jQuery.fn.dataTable.ext.classes, {
         sWrapper: "dataTables_wrapper dt-bootstrap4",

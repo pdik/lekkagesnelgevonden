@@ -453,15 +453,15 @@
         <!-- END Page Container -->
 
         <!-- Dashmix Core JS -->
+        <script src="{{ asset('js/plugins/editor/build/ckeditor.js') }}"></script>
         <script src="{{ mix('js/dashmix.app.js') }}"></script>
-        <script src="{{ mix('js/functions.js') }}"></script>
+        <script src="{{ asset('js/functions.js') }}"></script>
         <script src="{{ asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
-        <script src="{{asset('js/plugins/ckeditor/ckeditor.js')}}"></script>
 {{--        <script src="{{ asset('js/pages/be_comp_chat.js')}}"></script>--}}
 {{--        <script src="{{ asset('js/plugins/cropperjs/cropper.js')}}"></script>--}}
 {{--        <script src="{{asset('js/pages/be_comp_image_cropper.js')}}"></script>--}}
         <!-- Laravel Scaffolding JS -->
-        <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
+        <!-- <script src="{{ asset('/js/laravel.app.js') }}"></script> -->
 
         @yield('js_after')
         @stack('scripts')

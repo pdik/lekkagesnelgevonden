@@ -8,6 +8,8 @@
 // Import required modules
 import Tools from './tools';
 
+
+
 // Helper variables
 let sparklineResize = false;
 let sparklineTimeout;
@@ -616,11 +618,72 @@ export default class Helpers {
         // Init full text editor
         if (jQuery('#js-ckeditor5-classic:not(.js-ckeditor5-classic-enabled)').length) {
             ClassicEditor
-                .create( document.querySelector( '#js-ckeditor5-classic' ) )
+                .create( document.querySelector( '#js-ckeditor5-classic'),{
+                    toolbar: {
+					items: [
+						'heading',
+						'|',
+						'undo',
+						'redo',
+						'|',
+						'bold',
+						'italic',
+						'|',
+						'fontSize',
+						'fontFamily',
+						'fontColor',
+						'|',
+						'bulletedList',
+						'numberedList',
+						'|',
+						'outdent',
+						'indent',
+						'|',
+						'pageBreak',
+						'|',
+						'link',
+						'imageUpload',
+						'imageInsert',
+						'mediaEmbed',
+						'|',
+						'specialCharacters',
+						'blockQuote',
+						'insertTable'
+					]
+				},
+				language: 'nl',
+				image: {
+					toolbar: [
+						'imageTextAlternative',
+						'imageStyle:full',
+						'imageStyle:side',
+						'linkImage'
+					]
+				},
+				table: {
+					contentToolbar: [
+						'tableColumn',
+						'tableRow',
+						'mergeTableCells',
+						'tableCellProperties',
+						'tableProperties'
+					]
+				}, licenseKey: '',
+                    simpleUpload: {
+                        // The URL that the images are uploaded to.
+                        uploadUrl: 'http://example.com',
+                        withCredentials: true,
+                        headers: {
+                            'X-CSRF-TOKEN': 'CSRF-Token',
+                            Authorization: 'Bearer <JSON Web Token>'
+                        }
+                    }
+                })
                 .then( editor => {
                     window.editor = editor;
                 } )
                 .catch( error => {
+                    console.error( 'Oops, something went wrong!' );
                     console.error( 'There was a problem initializing the classic editor.', error );
                 } );
 
