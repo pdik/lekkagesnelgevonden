@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCustomer;
 use App\Models\Contact;
 use App\Models\Contact_options;
 use App\Models\customers;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,19 +47,23 @@ class CustomersController extends Controller
     {
 
         $customer = customers::create($cRequest->all());
-        $contact_count = count($cRequest['contact_type']);
+        foreach ($cRequest->customerDetials as $detial) {
 
-        for($i =0; $i < $contact_count; $i ++){
-            //echo $cRequest['contact_type'][$i]. " ". $cRequest['contact_value'][$i]."<br>";
+            /**
+             * Insert Contact detials into Database
+             */
             Contact::create([
                 'customer_id' => $customer->id,
-                'contact_option_id' => $cRequest['detial'][$i],
-                'data'=> $cRequest['value'][$i]
+                'contact_option_id' =>  $detial['type'],
+                'data'=> $detial['data']
             ]);
-
         }
-        return redirect()->route('dashboard')->with('status','Klant is succesvol aangemaakt');
-
+        try{
+            return redirect()->route('dashboard')->with('status','Klant is succesvol aangemaakt');
+        }
+        catch (ModelNotFoundException $e){
+            return redirect()->route('dashboard')->with('failed','Niet gelukt om klant aantemaken');
+        }
     }
 
     /**
@@ -98,18 +103,26 @@ class CustomersController extends Controller
         $data = $request->validated();
         $customer = customers::find($id);
         $customer->update($data);
-        $count = count($request->value);
+        /**
+         * Remove old data en add new data
+         */
         Contact::where('customer_id', $customer->id)->delete();
-        for($i =0; $i < $count; $i ++){
+         foreach ($request->customerDetials as $detial) {
 
-              Contact::create([
-                  'contact_option_id' => $data['detial'][$i],
-                  'customer_id'       => $customer->id,
-                  'data'              => $data['value'][$i],
-                  'updated_at'        => now()
-              ]);
-          }
-          return redirect(route('klanten.edit', ['klanten'=> $customer->id]))->with('status','Klant Geupdate');
+            /**
+             * Insert Contact detials into Database
+             */
+            Contact::create([
+                'customer_id' => $customer->id,
+                'contact_option_id' =>  $detial['type'],
+                'data'=> $detial['data']
+            ]);
+        }
+         try{
+             return redirect(route('klanten.edit', ['klanten'=> $customer->id]))->with('status','Klant Geupdate');
+         }catch (\Exception $e){
+              return redirect(route('klanten.edit', ['klanten'=> $customer->id]))->with('failed','Niet kunnen updaten');
+         }
     }
 
     /**
@@ -121,8 +134,11 @@ class CustomersController extends Controller
     public function destroy($id)
     {
        $customer =  customers::find($id);
-        $customer->delete();
-        return redirect(route('dashboard'))->with('status','Klant is succesvol aangemaakt');
+       if($customer->delete()){
+           return redirect(route('dashboard'))->with('status','Klant is succesvol aangemaakt');
+       }else{
+         return redirect(route('dashboard'))->with('failed','Klant niet kunnen verwijderen');
+       }
     }
 
 }

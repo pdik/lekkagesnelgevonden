@@ -67,49 +67,7 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="wizard-simple2-step3" role="tabpanel">
-                            <table class="table table-bordered" id="customer_detials">
-                                <thead>
-                                <tr>
-                                    <th style="width:10%">Type</th>
-                                    <th style="width:10%">Waarde</th>
-                                    <th style="width:5%"><button type="button" onclick="addContactRow('customer_detials')" class="btn btn-success"><i class="fa fa-plus"></i></button></th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-
-
-                                <tr id="row_1">
-                                    <td>
-                                        <div class="form-group">
-                                            <select class="form-control " data-row-id="row_1" id="contact_type_1" name="detial[]" style="width:100%;">
-                                                @foreach($contact_options as $options)
-                                                <option value="{{ $options->id }}">{{ $options->title }}</option>
-                                                @endforeach
-
-                                            </select><span class="material-input"></span></div>
-                                    </td>
-                                    <td><div class="form-group is-empty"><input type="text" name="value[]" id="contact_value_1" class="form-control" value="" autocomplete="off"><span class="material-input"></span></div></td>
-
-
-                                    <td><button type="button" class="btn btn-danger" onclick="removeRow('customer_detials','1')"><i class="fa fa-archive"></i></button></td>
-                                </tr>
-
-                                <tr id="row_2">
-                                    <td>
-                                        <div class="form-group"><select class="form-control " data-row-id="row_2" id="contact_type_2" name="contact_type[]" style="width:100%;">
-                                                @foreach($contact_options as $options)
-                                                    <option value="{{ $options->id }}">{{ $options->title }}</option>
-                                                @endforeach
-
-                                            </select><span class="material-input"></span></div>
-                                    </td>
-                                    <td><div class="form-group is-empty"><input type="text" name="contact_value[]" id="contact_value_2" class="form-control" value="" autocomplete="off"><span class="material-input"></span></div></td>
-                                    <td><button type="button" class="btn btn-danger" onclick="removeRow('customer_detials','2')"><i class="fa fa-archive"></i></button></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
+                             <livewire:customer.detials></livewire:customer.detials>
                         </div>
                     </div>
                     <div class="block-content block-content-sm block-content-full bg-body-light rounded-bottom">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Images;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -51,9 +52,14 @@ class ImageController extends Controller
             $originName = $request->file('upload')->getClientOriginalName();
             $fileName = pathinfo($originName, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
+
             $fileName = $fileName . '_' . time() . '.' . $extension;
 
             $request->file('upload')->move(public_path('images'), $fileName);
+             Images::create([
+                'name'      => $fileName,
+                'extension' => $extension
+            ]); //Add images to Database for later use
 
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
             $url = asset('images/' . $fileName);

@@ -107,38 +107,7 @@
                             </p>
                         </div>
                         <div class="col-lg-8 col-xl-7">
-                            <table class="table table-bordered" id="customer_detials">
-                                    <thead>
-                                    <tr>
-                                        <th style="width:10%">Type</th>
-                                        <th style="width:10%">Waarde</th>
-                                        <th style="width:5%"><button type="button" onclick="addContactRow('customer_detials')" class="btn btn-success"><i class="fa fa-plus"></i></button></th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                    @foreach($customer->detials as $detail)
-                                          <tr id="row_{{ $loop->index }}">
-                                        <td>
-                                            <input type="hidden" name="item[]" value="{{$detail->id}}">
-                                            <div class="form-group">
-                                                <select class="form-control " data-row-id="row_{{ $loop->index }}" id="detial_{{ $loop->index }}" name="detial[]" style="width:100%;">
-                                                    @foreach($options as $option)
-                                                    <option {{ $option->id ===  $detail->contact_option_id ? ' selected="selected"' : '' }} value="{{ $option->id }}">{{ $option->title }}</option>
-                                                    @endforeach
-
-                                                </select><span class="material-input"></span></div>
-                                        </td>
-                                        <td><div class="form-group is-empty"><input type="text" name="value[]" id="value_{{ $loop->index }}" class="form-control" value="{{ $detail->data  }}" autocomplete="off"><span class="material-input"></span></div></td>
-
-
-                                        <td><button type="button" class="btn btn-danger" onclick="removeRow('customer_detials',{{ $loop->index }})"><i class="fa fa-archive"></i></button></td>
-                                    </tr>
-                                    @endforeach
-
-                                    </tbody>
-                                </table>
+                        <livewire:customer.editdetials :id="$customer->id"></livewire:customer.editdetials>
                         </div>
                     </div>
 
