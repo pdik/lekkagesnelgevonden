@@ -10,9 +10,10 @@ trait WithUpdateValues
 
     public function updateValues($values)
     {
-      // dd($values);
+
         foreach ($values as $key => $value){
         $this->$key = $value;
+
         }
     }
     public function addItemToArray($values)

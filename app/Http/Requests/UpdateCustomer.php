@@ -29,23 +29,6 @@ class UpdateCustomer extends FormRequest
             'adres' => 'required',
             'placename'=> 'required',
             'postalcode' => 'required',
-            'item'   => [
-                'array',
-            ],
-            'detial.*' => [
-                'integer',
-            ],
-            'detial'   => [
-                'required',
-                'array',
-            ],
-            'value.*' => [
-                'string',
-            ],
-                'value'   => [
-                'required',
-                'array',
-            ],
         ];
     }
     public function messages()

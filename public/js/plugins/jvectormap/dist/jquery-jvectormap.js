@@ -1190,7 +1190,7 @@ jvm.VMLCircleElement.prototype.applyAttr = function(attr, value){
       jvm.VMLCircleElement.parentClass.prototype.applyAttr.call(this, attr, value);
   }
 };/**
- * Class for vector images manipulations.
+ * Class for vector files manipulations.
  * @constructor
  * @param {DOMElement} container to place canvas to
  * @param {Number} width
@@ -2148,7 +2148,7 @@ jvm.Marker.prototype.setStyle = function(property, value){
   selectedHover: {
   }
 }</pre>
-You can also use <code>image</code> style attribute for markers. By default marker images are centered with the target point on map. To supply a custom offset please use the following format:
+You can also use <code>image</code> style attribute for markers. By default marker files are centered with the target point on map. To supply a custom offset please use the following format:
 <pre>{
   url: 'image/url',
   offset: [-10, 5]

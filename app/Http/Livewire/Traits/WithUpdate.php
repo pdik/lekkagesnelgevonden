@@ -9,7 +9,6 @@ trait WithUpdate
     }
 
     public function update($values){
-        // dd($values);
           foreach ($values as $key => $data){
               ////dd($key);
               if($key ==='array'){
@@ -17,6 +16,8 @@ trait WithUpdate
               }else if($key === 'value'){
                 $this->$key = $data;
               }
+               $this->$key = $data;
+
           }
     }
 }

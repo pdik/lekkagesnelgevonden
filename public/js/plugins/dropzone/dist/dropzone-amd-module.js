@@ -264,7 +264,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         paramName: "file",
 
         /**
-         * Whether thumbnails for images should be generated
+         * Whether thumbnails for files should be generated
          */
         createImageThumbnails: true,
 
@@ -279,18 +279,18 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         thumbnailWidth: 120,
 
         /**
-         * The same as `thumbnailWidth`. If both are null, images will not be resized.
+         * The same as `thumbnailWidth`. If both are null, files will not be resized.
          */
         thumbnailHeight: 120,
 
         /**
-         * How the images should be scaled down in case both, `thumbnailWidth` and `thumbnailHeight` are provided.
+         * How the files should be scaled down in case both, `thumbnailWidth` and `thumbnailHeight` are provided.
          * Can be either `contain` or `crop`.
          */
         thumbnailMethod: 'crop',
 
         /**
-         * If set, images will be resized to these dimensions before being **uploaded**.
+         * If set, files will be resized to these dimensions before being **uploaded**.
          * If only one, `resizeWidth` **or** `resizeHeight` is provided, the original aspect
          * ratio of the file will be preserved.
          *
@@ -312,12 +312,12 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         resizeMimeType: null,
 
         /**
-         * The quality of the resized images. See `resizeWidth`.
+         * The quality of the resized files. See `resizeWidth`.
          */
         resizeQuality: 0.8,
 
         /**
-         * How the images should be scaled down in case both, `resizeWidth` and `resizeHeight` are provided.
+         * How the files should be scaled down in case both, `resizeWidth` and `resizeHeight` are provided.
          * Can be either `contain` or `crop`.
          */
         resizeMethod: 'contain',
@@ -652,7 +652,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
             width = height * srcRatio;
           } else if (height == null) {
             height = width / srcRatio;
-          } // Make sure images aren't upscaled
+          } // Make sure files aren't upscaled
 
 
           width = Math.min(width, info.srcWidth);
@@ -692,7 +692,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
          * Can be used to transform the file (for example, resize an image if necessary).
          *
          * The default implementation uses `resizeWidth` and `resizeHeight` (if provided) and resizes
-         * images according to those dimensions.
+         * files according to those dimensions.
          *
          * Gets the `file` as the first parameter, and a `done()` function as the second, that needs
          * to be invoked with the file when the transformation is done.
@@ -1136,7 +1136,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
     key: "getAddedFiles",
     value: function getAddedFiles() {
       return this.getFilesWithStatus(Dropzone.ADDED);
-    } // Files that are either queued or uploading
+    } // File that are either queued or uploading
 
   }, {
     key: "getActiveFiles",
@@ -1268,7 +1268,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
           // IE, we need to iterate like this instead of
           // using e.dataTransfer.types.some()
           for (var i = 0; i < e.dataTransfer.types.length; i++) {
-            if (e.dataTransfer.types[i] === "Files") return true;
+            if (e.dataTransfer.types[i] === "File") return true;
           }
         }
 
@@ -1958,7 +1958,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
       var fileReader = new FileReader();
 
       fileReader.onload = function () {
-        file.dataURL = fileReader.result; // Don't bother creating a thumbnail for SVG images since they're vector
+        file.dataURL = fileReader.result; // Don't bother creating a thumbnail for SVG files since they're vector
 
         if (file.type === "image/svg+xml") {
           if (callback != null) {
@@ -1973,7 +1973,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
 
       fileReader.readAsDataURL(file);
     } // `mockFile` needs to have these attributes:
-    // 
+    //
     //     { name: 'name', size: 12345, imageUrl: '' }
     //
     // `callback` will be invoked when the image has been downloaded and displayed.
@@ -3195,7 +3195,7 @@ Dropzone.SUCCESS = "success";
 
  */
 // Detecting vertical squash in loaded image.
-// Fixes a bug which squash image vertically while drawing into canvas for some images.
+// Fixes a bug which squash image vertically while drawing into canvas for some files.
 // This is a bug in iOS6 devices. This function from https://github.com/stomita/ios-imagefile-megapixel
 
 var detectVerticalSquash = function detectVerticalSquash(img) {

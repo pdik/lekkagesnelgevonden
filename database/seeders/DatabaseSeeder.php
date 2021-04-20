@@ -16,7 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             users::class,
             PermissionSeeder::class,
-            contact_options::class
+            contact_options::class,
+            ItemSeeder::class,
+            Contacts::class
         ]);
     }
 }

@@ -20,7 +20,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/users', function () {
         // Matches The "/admin/users" URL
     });
-    Route::post('/images/upload', [\App\Http\Controllers\Api\V1\ImageController::class,'upload']); //Upload image
+    Route::post('/images/upload', [\App\Http\Controllers\Api\V1\ImageController::class,'upload_v2']); //Upload image
     Route::get('/detials/contact', [\App\Http\Controllers\Api\V1\DetialsController::class,'index']);
 
 });

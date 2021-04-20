@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\customers;
 use App\Models\report;
+use App\Models\report_rows;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ReportController extends Controller
 {
@@ -15,7 +18,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+     return view('reports.index',['reports' => report::all()]);
     }
 
     /**
@@ -33,11 +36,39 @@ class ReportController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'customer_id' => 'required',
+        'data' => 'nullable',
+    ]);
+      $report = new report();
+      $report->customer_id = $request['customer_id'];
+      $report->created_at = now();
+      $report->updated_at = now();
+      $report->status = 1;
+      $report->data = $request['data'];
+      $report->created_by = \Auth::user()->getAuthIdentifier();
+      if($report->save()){
+           foreach($request['item'] as $item){
+
+                  report_rows::create([
+                      'method_id'   => $item['id'],
+                      'data'        => $item['data'],
+                      'report_id'   => $report['id']
+                  ]);
+              }
+      }
+        try{
+           $r = Report::findOrFail($report->id);
+            return redirect()->route('rapport.index')->with('status', __('global.report') . ' ' . __('global.saved'));
+        }
+        catch (ModelNotFoundException $exception){
+
+            return redirect()->route('rapport.create')->with('status','Failed to save report');
+        }
     }
 
     /**
@@ -49,7 +80,6 @@ class ReportController extends Controller
     public function show($id)
     {
        $report = report::find($id);
-       dd($report);
     }
 
     /**
@@ -60,8 +90,17 @@ class ReportController extends Controller
      */
     public function edit(report $report)
     {
-        //
+
     }
+
+    /**
+     * @param $report report
+     */
+    public function send(report $report)
+    {
+
+    }
+
 
     /**
      * Update the specified resource in storage.

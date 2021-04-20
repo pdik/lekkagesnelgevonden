@@ -16,7 +16,7 @@ class ReportRows extends Migration
         Schema::create('report_rows', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('method_id')->index();
-            $table->mediumText('text');
+            $table->longText('data');
             $table->unsignedBigInteger('report_id')->index();
             $table->foreign('report_id')->references('id')->on('report')->onDelete('cascade');
         });

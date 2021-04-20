@@ -17,9 +17,7 @@ class ItemsComponent extends Component
     }
     public function searching()
     {
-
         $this->emitUp($this->function,[$this->name, $this->search]);
-        $this->search = '';
     }
     public function render()
     {

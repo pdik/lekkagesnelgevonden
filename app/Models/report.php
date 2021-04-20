@@ -17,9 +17,9 @@ class report extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function createdBy()
+    public function user()
     {
-        return $this->belongsTo(User::class,'customer_id');
+        return $this->belongsTo(User::class,'created_by');
     }
 
     /**

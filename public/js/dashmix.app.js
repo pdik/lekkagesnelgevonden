@@ -16,10 +16,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var jquery_appear__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery.appear */ "./node_modules/jquery.appear/jquery.appear.js");
-/* harmony import */ var jquery_appear__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery_appear__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var jquery_scroll_lock__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! jquery-scroll-lock */ "./node_modules/jquery-scroll-lock/jquery-scrollLock.js");
-/* harmony import */ var jquery_scroll_lock__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(jquery_scroll_lock__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var popper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js");
+/* harmony import */ var jquery_appear__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! jquery.appear */ "./node_modules/jquery.appear/jquery.appear.js");
+/* harmony import */ var jquery_appear__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(jquery_appear__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var jquery_scroll_lock__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jquery-scroll-lock */ "./node_modules/jquery-scroll-lock/jquery-scrollLock.js");
+/* harmony import */ var jquery_scroll_lock__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(jquery_scroll_lock__WEBPACK_IMPORTED_MODULE_6__);
 /*
  *  Document   : bootstrap.js
  *  Author     : pixelcave
@@ -308,7 +309,7 @@ var Helpers = /*#__PURE__*/function () {
         var el = jQuery(element); // Add .js-custom-file-input-enabled class to tag it as activated
 
         el.addClass('js-custom-file-input-enabled').on('change', function (e) {
-          var fileName = e.target.files.length > 1 ? e.target.files.length + ' ' + (el.data('lang-files') || 'Files') : e.target.files[0].name;
+          var fileName = e.target.files.length > 1 ? e.target.files.length + ' ' + (el.data('lang-files') || 'File') : e.target.files[0].name;
           el.next('.custom-file-label').css('overflow-x', 'hidden').html(fileName);
         });
       });
@@ -753,27 +754,40 @@ var Helpers = /*#__PURE__*/function () {
       } // Init full text editor
 
 
-      if (jQuery('#js-ckeditor5-classic:not(.js-ckeditor5-classic-enabled)').length) {
-        ClassicEditor.create(document.querySelector('#js-ckeditor5-classic'), {
-          toolbar: {
-            items: ['heading', '|', 'undo', 'redo', '|', 'bold', 'italic', '|', 'fontSize', 'fontFamily', 'fontColor', '|', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'pageBreak', '|', 'link', 'imageUpload', 'imageInsert', 'mediaEmbed', '|', 'specialCharacters', 'blockQuote', 'insertTable']
-          },
-          language: 'nl',
-          image: {
-            toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side', 'linkImage']
-          },
-          table: {
-            contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableCellProperties', 'tableProperties']
-          },
-          licenseKey: ''
-        }).then(function (editor) {
-          window.editor = editor;
-        })["catch"](function (error) {
-          console.error('Oops, something went wrong!');
-          console.error('There was a problem initializing the classic editor.', error);
-        }); // Add .js-ckeditor5-classic-enabled class to tag it as activated
+      var allEditors = document.querySelectorAll('.js-ckeditor5-classic');
 
-        jQuery('#js-ckeditor5-classic').addClass('js-ckeditor5-classic-enabled');
+      for (var i = 0; i < allEditors.length; ++i) {
+        if (!allEditors[i].classList.contains('js-ckeditor5-classic-enabled')) {
+          ClassicEditor.create(allEditors[i], {
+            toolbar: {
+              items: ['|', 'heading', '|', 'undo', 'redo', '|', 'fontFamily', 'fontColor', 'fontSize', 'bold', 'italic', 'blockQuote', '|', 'alignment', 'bulletedList', 'numberedList', 'outdent', 'indent', 'pageBreak', 'insertTable', '|', 'link', 'imageUpload', 'mediaEmbed']
+            },
+            language: 'nl',
+            image: {
+              toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
+            },
+            table: {
+              contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableCellProperties', 'tableProperties']
+            },
+            licenseKey: '',
+            simpleUpload: {
+              // The URL that the files are uploaded to.
+              uploadUrl: '/api/v1/files/upload',
+              // Enable the XMLHttpRequest.withCredentials property.
+              withCredentials: false,
+              // Headers sent along with the XMLHttpRequest to the upload server.
+              headers: {}
+            }
+          }).then(function (editor) {
+            window.editor = editor;
+          })["catch"](function (error) {
+            console.error('Oops, something went wrong!');
+            console.error('There was a problem initializing the classic editor.', error);
+          });
+          console.log('added'); // Add .js-ckeditor5-classic-enabled class to tag it as activated
+
+          jQuery(allEditors[i]).addClass('js-ckeditor5-classic-enabled');
+        }
       }
     }
     /*

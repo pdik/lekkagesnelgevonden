@@ -669,14 +669,12 @@ export default class Helpers {
 						'tableProperties'
 					]
 				}, licenseKey: '',
+                    uploadUrl:'/api/v1/images/upload',
+                    filebrowserUploadUrl:'/api/v1/images/upload',
+                    filebrowserUploadMethod: 'form',
                     simpleUpload: {
                         // The URL that the images are uploaded to.
-                        uploadUrl: 'http://example.com',
-                        withCredentials: true,
-                        headers: {
-                            'X-CSRF-TOKEN': 'CSRF-Token',
-                            Authorization: 'Bearer <JSON Web Token>'
-                        }
+                        uploadUrl: '/api/v1/images/upload'
                     }
                 })
                 .then( editor => {

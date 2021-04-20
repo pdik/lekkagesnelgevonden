@@ -2,44 +2,21 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Report\Explanation;
 use App\Http\Livewire\Traits\WithUpdate;
 
+use App\Http\Livewire\Traits\WithUpdateValues;
+use App\Models\Items;
 use Livewire\Component;
-use Livewire\WithPagination;
-use App\Models\Methods;
 class Chooser extends Component
 {
-    use WithPagination;
-    use WithUpdate;
-
-    /**
-     * Transition status.
-     */
-    private const STATUS = [
-        'selected' => 'unselected',
-        'unselected' => 'selected',
-    ];
-
-    /**
-     * Items per page.
-     *
-     * @var int
-     */
-    public  $pagination = 0 ;
-
-    /**
-     * Filter Method.
-     *
-     * @var string
-     */
-    public $filter = 'all';
 
     /**
      * Selected array
      */
 
     public $selected = [];
-
+    public $allItems = [];
 
     /**
      * Search Items.
@@ -61,37 +38,83 @@ class Chooser extends Component
     /**
      * Render the component.
      *
-     * @return View
+     * @return View|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function render()
     {
-        $methods = Methods::search($this->search)->paginate($this->pagination);
-        return view('livewire.chooser', ['methods' => $methods]);
-
-       // dd($methods);
+        return view('livewire.chooser');
     }
 
-    /**
+    public function getSelectedId(){
+          $selected = [];
+        if(is_array($this->selected)){
+            if(count($this->selected) >= 1) {
+                foreach ($this->selected as $select) {
+                    $selected[] = $select['id'];
+                }
+            }
+              else{
+                  $selected = [];
+                }
+        }
+        return $selected;
+    }
+    public function searching(){
+        $this->allItems = Items::Byname($this->search,$this->getSelectedId());
+        return  $this->allItems;
+    }
+    public  function select($id){
+        $key = $this->searchForId($id, $this->selected);
+        if(isset($key)){
+
+        }else{
+          $this->search = null;
+          $this->selected[] =Items::find($id)->only('name','id');
+          $this->searching();
+          $this->dispatchBrowserEvent('additem', $this->getSelected());
+        }
+    }
+    public function unselect($id){
+
+       $key = $this->searchForId($id, $this->selected);
+        if(isset($key)){
+             unset($this->selected[$key]);
+            $this->selected = array_values($this->selected);
+        }
+       $this->searching();
+        $this->dispatchBrowserEvent('additem', $this->getSelected());
+    }
+    private function getSelected(){
+          $selected = [];
+        if(is_array($this->selected)){
+            if(count($this->selected) >= 1) {
+                foreach ($this->selected as $select) {
+                    $selected[] = $select;
+                }
+            }
+              else{
+                  $selected = [];
+                }
+        }
+        return $selected;
+    }
+    private function searchForId($id, $array) {
+       foreach ($array as $key => $val) {
+           if ($val['id'] === $id) {
+               return $key;
+           }
+       }
+       return null;
+    }
+
+
+      /**
      * Mount component.
      *
-     * @param int $pagination
+
      */
-    public function mount(int $pagination): void
+    public function mount()
     {
-        $this->pagination = $pagination;
-        $this->checkItemsOnCurrentPage = false;
-        $this->fill(request()->only('search', 'page', 'filter'));
-    }
-
-
-
-    /**
-     * Override the pagination view.
-     *
-     * @return string
-     */
-    public function paginationView(): string
-    {
-        return 'vendor/livewire/simple-bootstrap';
+         $this->allItems =Items::Byname();
     }
 }

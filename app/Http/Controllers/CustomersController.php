@@ -41,7 +41,7 @@ class CustomersController extends Controller
      * Store a new customer to Datbase
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreCustomer $cRequest)
     {
@@ -59,7 +59,7 @@ class CustomersController extends Controller
             ]);
         }
         try{
-            return redirect()->route('dashboard')->with('status','Klant is succesvol aangemaakt');
+            return redirect()->route('customers.edit', [$customer->id])->with('status','Klant is succesvol aangemaakt');
         }
         catch (ModelNotFoundException $e){
             return redirect()->route('dashboard')->with('failed','Niet gelukt om klant aantemaken');
@@ -81,7 +81,7 @@ class CustomersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\customers  $customer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -94,14 +94,13 @@ class CustomersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\customers  $customers
-     * @return \Illuminate\Http\Response
+     * @param UpdateCustomer $request
+     * @param customers $customer
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(UpdateCustomer $request, $id)
+    public function update(UpdateCustomer $request, customers $customer)
     {
         $data = $request->validated();
-        $customer = customers::find($id);
         $customer->update($data);
         /**
          * Remove old data en add new data
@@ -119,9 +118,9 @@ class CustomersController extends Controller
             ]);
         }
          try{
-             return redirect(route('klanten.edit', ['klanten'=> $customer->id]))->with('status','Klant Geupdate');
+             return redirect(route('customers.edit', ['customer'=> $customer->id]))->with('status','Klant Geupdate');
          }catch (\Exception $e){
-              return redirect(route('klanten.edit', ['klanten'=> $customer->id]))->with('failed','Niet kunnen updaten');
+              return redirect(route('customers.edit', ['customer'=> $customer->id]))->with('failed','Niet kunnen updaten');
          }
     }
 
@@ -129,7 +128,7 @@ class CustomersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\customers  $customers
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {

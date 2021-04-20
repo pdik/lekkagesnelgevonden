@@ -29,6 +29,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+
         'email',
         'password',
     ];
@@ -42,6 +43,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'two_factor_recovery_codes',
+        'id',
         'two_factor_secret',
     ];
 
@@ -62,38 +64,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-    /**
-     * Get the path to the profile picture
-     *
-     * @return string
-     */
-    public function profilePicture()
-    {
-        if ($this->picture) {
-            return "/storage/app/{$this->picture}";
-        }
 
-        return '/storage/app/basic_profile.jpg';
+    public function CreatedReports(){
+        return  $this->hasMany(report::class,'created_by','id');
     }
-    public function getEmailVerifiedAtAttribute($value)
-    {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('pdik.date_format') . ' ' . config('pdik.time_format')) : null;
-    }
-    public function setEmailVerifiedAtAttribute($value)
-    {
-        $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('pdik.date_format') . ' ' . config('pdik.time_format'), $value)->format('Y-m-d H:i:s') : null;
-    }
-
-    public function setPasswordAttribute($input)
-    {
-        if ($input) {
-            $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
-        }
-    }
-
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPassword($token));
-    }
-
 }
