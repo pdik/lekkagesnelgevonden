@@ -20,19 +20,22 @@
 
         <!-- Fonts and Styles -->
         @yield('css_before')
+          <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+         @livewireStyles
+         @livewireScripts
+         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
         <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
 
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
 {{--        <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xdream.css') }}">--}}
         @yield('css_after')
-        @livewireStyles
-         @livewireScripts
+          <script src="{{ mix('js/app.js') }}" defer></script>
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
     </head>
     <body>
-        <div id="page-container" class="enable-cookies sidebar-o enable-page-overlay sidebar-dark side-scroll page-header-fixed main-content-narrow">
+        <div id="page-container" class="enable-cookies sidebar-o enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
             <!-- Side Overlay-->
             <aside id="side-overlay">
                 <!-- Side Header -->
@@ -186,17 +189,6 @@
             <!-- END Side Overlay -->
 
             <!-- Sidebar -->
-            <!--
-                Sidebar Mini Mode - Display Helper classes
-
-                Adding 'smini-hide' class to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
-                Adding 'smini-show' class to an element will make it visible (opacity: 1) when the sidebar is in mini mode
-                    If you would like to disable the transition animation, make sure to also add the 'no-transition' class to your element
-
-                Adding 'smini-hidden' to an element will hide it when the sidebar is in mini mode
-                Adding 'smini-visible' to an element will show it (display: inline-block) only when the sidebar is in mini mode
-                Adding 'smini-visible-block' to an element will show it (display: block) only when the sidebar is in mini mode
-            -->
             <nav id="sidebar" aria-label="Main Navigation">
                 <!-- Side Header -->
                 <div class="bg-header-dark">
@@ -215,15 +207,11 @@
                         <!-- Options -->
                         <div>
                             <!-- Toggle Sidebar Style -->
-                            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                            <!-- Class Toggle, functionality initialized in Helpers.coreToggleClass() -->
+
                             <a class="js-class-toggle text-white-75" data-target="#sidebar-style-toggler" data-class="fa-toggle-off fa-toggle-on" onclick="Dashmix.layout('sidebar_style_toggle');Dashmix.layout('header_style_toggle');" href="javascript:void(0)">
                                 <i class="fa fa-toggle-off" id="sidebar-style-toggler"></i>
                             </a>
                             <!-- END Toggle Sidebar Style -->
-
-                            <!-- Close Sidebar, Visible only on mobile screens -->
-                            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                             <a class="d-lg-none text-white ml-2" data-toggle="layout" data-action="sidebar_close" href="javascript:void(0)">
                                 <i class="fa fa-times-circle"></i>
                             </a>
@@ -249,14 +237,14 @@
 
                             <li class="nav-main-heading">Klanten</li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{route('klanten.create')}}">
+                                <a class="nav-main-link" href="{{route('customers.create')}}">
                                     <i class="nav-main-link-icon fa fa-user-plus"></i>
                                     <span class="nav-main-link-name">Nieuw</span>
                                 </a>
                             </li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{route('klanten.index')}}">
-                                    <i class="nav-main-link-icon fa fa-user-edit"></i>
+                                <a class="nav-main-link" href="{{route('customers.index')}}">
+                              <i class="nav-main-link-icon fa fa-clipboard-list"></i>
                                     <span class="nav-main-link-name">Overzicht</span>
                                 </a>
                             </li>
@@ -269,47 +257,52 @@
                             </li>
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{route('rapport.index')}}">
-                                    <i class="nav-main-link-icon fa fa-edit"></i>
+                                     <i class="nav-main-link-icon fa fa-clipboard-list"></i>
                                     <span class="nav-main-link-name">Overzicht</span>
                                 </a>
                             </li>
-                            <li class="nav-main-heading">Offerte's</li>
-                            <li class="nav-main-item">
-                                <a class="nav-main-link" href="/admin/rapport/maken">
+{{--                            <li class="nav-main-heading">Offerte's</li>--}}
+{{--                            <li class="nav-main-item">--}}
+{{--                                <a class="nav-main-link" href="{{ route('rapport.create') }}">--}}
+{{--                                    <i class="nav-main-link-icon fa fa-file-invoice-dollar"></i>--}}
+{{--                                    <span class="nav-main-link-name">Maken</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-main-item">--}}
+{{--                                <a class="nav-main-link" href="{{route('rapport.index')}}">--}}
+{{--                                    <i class="nav-main-link-icon fa fa-clipboard-list"></i>--}}
+{{--                                    <span class="nav-main-link-name">Overzicht</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+                              <li class="nav-main-heading">Items</li>
+                             <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('items.item') }}">
                                     <i class="nav-main-link-icon fa fa-file-invoice-dollar"></i>
-                                    <span class="nav-main-link-name">Maken</span>
+                                    <span class="nav-main-link-name">Creeren</span>
                                 </a>
                             </li>
-                            <li class="nav-main-item">
-                                <a class="nav-main-link" href="/admin/rapport/maken">
-                                    <i class="nav-main-link-icon fa fa-clipboard-list"></i>
+                                <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('items') }}">
+                                       <i class="nav-main-link-icon fa fa-clipboard-list"></i>
                                     <span class="nav-main-link-name">Overzicht</span>
                                 </a>
                             </li>
-                            <li class="nav-main-heading">Voorbeelden</li>
-                            <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
-                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
-                                    <i class="nav-main-link-icon fa fa-lightbulb"></i>
-                                    <span class="nav-main-link-name">Examples</span>
+                            @can('admin.settings.view')
+                            <li class="nav-main-heading">Settings</li>
+                               <li class="nav-main-item">
+                                <a class="nav-main-link" href="/settings">
+                                    <i class="nav-main-link-icon far fa-building"></i>
+                                    <span class="nav-main-link-name">Mijn app</span>
                                 </a>
-                                <ul class="nav-main-submenu">
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}" href="/pages/datatables">
-                                            <span class="nav-main-link-name">DataTables</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}" href="/pages/slick">
-                                            <span class="nav-main-link-name">Slick Slider</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}" href="/pages/blank">
-                                            <span class="nav-main-link-name">Blank</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="#">
+                                    <i class="nav-main-link-icon fa fa-balance-scale-right"></i>
+                                    <span class="nav-main-link-name">Rechten</span>
+                                </a>
+                            </li>
+
+                            @endcan
                         </ul>
                     </div>
                     <!-- END Side Navigation -->
@@ -359,8 +352,8 @@
                                         <i class="far fa-fw fa-user mr-1"></i> Profiel
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                                        <span><i class="far fa-fw fa-envelope mr-1"></i> Inbox</span>
-                                        <span class="badge badge-primary">0</span>
+                                        <span><i class="far fa-fw fa-envelope mr-1"></i>{{ __('global.notifications') }}</span>
+                                        <span class="badge badge-primary">{{ auth()->user()->unreadNotifications()->count() }}</span>
                                     </a>
                                     <a class="dropdown-item" href="javascript:void(0)">
                                         <i class="far fa-fw fa-file-alt mr-1"></i> Facturen
@@ -370,7 +363,7 @@
                                     <!-- Toggle Side Overlay -->
                                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                                     <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_toggle">
-                                        <i class="far fa-fw fa-building mr-1"></i> Settings
+                                        <i class="far fa-fw fa-building mr-1"></i> App layout
                                     </a>
                                     <!-- END Side Overlay -->
 
@@ -431,6 +424,9 @@
 
             <!-- Main Container -->
             <main id="main-container">
+                @if(isset($slot))
+                    {{$slot}}
+                    @endif
                 @yield('content')
             </main>
             <!-- END Main Container -->
@@ -453,7 +449,7 @@
         <!-- END Page Container -->
 
         <!-- Dashmix Core JS -->
-        <script src="{{ asset('js/plugins/editor/build/ckeditor.js') }}"></script>
+        <script src="{{ asset('js/plugins/ckeditor.js') }}" type="module"></script>
         <script src="{{ mix('js/dashmix.app.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
         <script src="{{ asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
@@ -462,7 +458,7 @@
 {{--        <script src="{{asset('js/pages/be_comp_image_cropper.js')}}"></script>--}}
         <!-- Laravel Scaffolding JS -->
         <!-- <script src="{{ asset('/js/laravel.app.js') }}"></script> -->
-
+        @stack('modals')
         @yield('js_after')
         @stack('scripts')
         @stack('js_after')
@@ -476,6 +472,12 @@
                 Dashmix.helpers('notify', {type: 'danger', icon: 'fa fa-check mr-1', message: '{{ session('failed') }}'});
                 @endif
             });
+              document.addEventListener("DOMContentLoaded", () => {
+                    window.Livewire.hook('element.updated', (el, component) => {
+
+                     Dashmix.helpers('ckeditor5');
+                    })
+              });
         </script>
     </body>
 </html>

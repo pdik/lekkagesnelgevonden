@@ -44,27 +44,34 @@
                                     <tr role="row">
                                         <th class="text-center sorting_asc" style="width: 80px;" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending">#</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Naam: activate to sort column ascending">Klant</th>
-                                        <th class="d-none d-sm-table-cell sorting" style="width: 15%;" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Plaatsnaam: activate to sort column ascending">Status</th>
+                                           <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Plaatsnaam: activate to sort column ascending">Plaatsnaam</th>
+                                        <th class="d-none d-sm-table-cell sorting" style="width: 15%;" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Report status: activate to sort column ascending">Status</th>
                                         <th style="width: 15%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="aangemaakt: activate to sort column ascending">aangemaakt op</th>
+                                         <th style="width: 15%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Created by: activate to sort column ascending">aangemaakt door</th>
                                         <th style="width: 15%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Actie: Voer een bepaalde actie uit">Actie</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($reports as $report)
                                         <tr role="row" class="odd">
-                                            <td class="text-center sorting_1">{{ $report->id }}</td>
-                                            <td class="font-w600">{{ $report->customer->first_name }} {{ $report->last_name }}</td>
-
+                                            <td class="text-center sorting_1" style="width: 10px;">{{ $report->id }}</td>
+                                            <td class="font-w600 w-25">{{ $report->customer->first_name }} {{ $report->customer->last_name }}</td>
+                                            <td class="font-w600 ">{{ $report->customer->placename }} {{ $report->customer->adres }}</td>
                                             <td class="d-none d-sm-table-cell">
                                                 @if($report->status == "1")
-                                                    <span class="badge badge-info">Send</span>
+                                                    <span class="badge badge-info">{{__('global.created')}}</span>
                                                 @elseif($report->status == "2")
-                                                    <span class="badge badge-success">Gelezen</span>
+                                                    <span class="badge badge-success">{{__('global.Sended')}}</span>
+                                                @elseif($report->status == "3")
+                                                    <span class="badge badge-success">{{__('global.Readed')}}</span>
                                                 @endif
 
                                             </td>
                                             <td>
                                                 <em class="text-muted">{{ \Carbon\Carbon::createFromTimeString($report->created_at)->locale('nl')->diffForHumans() }}</em>
+                                            </td>
+                                            <td>
+                                                {{ dd($report->user()) }}
                                             </td>
                                             <td>
                                                 <div class="btn btn-group">

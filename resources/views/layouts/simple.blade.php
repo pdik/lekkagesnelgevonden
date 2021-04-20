@@ -69,9 +69,9 @@
             ''                                          Classic Header style if no class is added
             'page-header-dark'                          Dark themed Header
             'page-header-glass'                         Light themed Header with transparency by default
-                                                        (absolute position, perfect for light images underneath - solid light background on scroll if the Header is also set as fixed)
+                                                        (absolute position, perfect for light files underneath - solid light background on scroll if the Header is also set as fixed)
             'page-header-glass page-header-dark'         Dark themed Header with transparency by default
-                                                        (absolute position, perfect for dark images underneath - solid dark background on scroll if the Header is also set as fixed)
+                                                        (absolute position, perfect for dark files underneath - solid dark background on scroll if the Header is also set as fixed)
 
         MAIN CONTENT LAYOUT
 

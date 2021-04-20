@@ -75,8 +75,8 @@
                                           </td>
                                           <td>
                                             <div class="btn btn-group">
-                                                <a href="{{ route('klanten.edit', $customer->id) }}" class="btn btn-info">Bewerk</a>
-                                                <form action="{{ route('klanten.destroy', $customer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-info">Bewerk</a>
+                                                <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">

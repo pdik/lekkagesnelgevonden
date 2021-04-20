@@ -16,57 +16,57 @@ let sparklineTimeout;
 
 // Helpers
 export default class Helpers {
-   /*
-    * Run helpers
-    *
-    */
-   static run(helpers, options = {}) {
-       let helperList = {
-           'core-bootstrap-tooltip': () => this.coreBootstrapTooltip(),
-           'core-bootstrap-popover': () => this.coreBootstrapPopover(),
-           'core-bootstrap-tabs': () => this.coreBootstrapTabs(),
-           'core-bootstrap-custom-file-input': () => this.coreBootstrapCustomFileInput(),
-           'core-toggle-class': () => this.coreToggleClass(),
-           'core-scroll-to': () => this.coreScrollTo(),
-           'core-year-copy': () => this.coreYearCopy(),
-           'core-appear': () => this.coreAppear(),
-           'core-ripple': () => this.coreRipple(),
-           print: () => this.print(),
-           'table-tools-sections': () => this.tableToolsSections(),
-           'table-tools-checkable': () => this.tableToolsCheckable(),
-           'magnific-popup': () => this.magnific(),
-           summernote: () => this.summernote(),
-           ckeditor: () => this.ckeditor(),
-           ckeditor5: () => this.ckeditor5(),
-           simplemde: () => this.simpleMDE(),
-           slick: () => this.slick(),
-           datepicker: () => this.datepicker(),
-           colorpicker: () => this.colorpicker(),
-           'masked-inputs': () => this.maskedInputs(),
-           select2: () => this.select2(),
-           highlightjs: () => this.highlightjs(),
-           notify: (options) => this.notify(options),
-           'easy-pie-chart': () => this.easyPieChart(),
-           maxlength: () => this.maxlength(),
-           rangeslider: () => this.rangeslider(),
-           sparkline: () => this.sparkline(),
-           validation: () => this.validation(),
-           'pw-strength': () => this.pwstrength(),
-           flatpickr: () => this.flatpickr()
-       };
+    /*
+     * Run helpers
+     *
+     */
+    static run(helpers, options = {}) {
+        let helperList = {
+            'core-bootstrap-tooltip': () => this.coreBootstrapTooltip(),
+            'core-bootstrap-popover': () => this.coreBootstrapPopover(),
+            'core-bootstrap-tabs': () => this.coreBootstrapTabs(),
+            'core-bootstrap-custom-file-input': () => this.coreBootstrapCustomFileInput(),
+            'core-toggle-class': () => this.coreToggleClass(),
+            'core-scroll-to': () => this.coreScrollTo(),
+            'core-year-copy': () => this.coreYearCopy(),
+            'core-appear': () => this.coreAppear(),
+            'core-ripple': () => this.coreRipple(),
+            print: () => this.print(),
+            'table-tools-sections': () => this.tableToolsSections(),
+            'table-tools-checkable': () => this.tableToolsCheckable(),
+            'magnific-popup': () => this.magnific(),
+            summernote: () => this.summernote(),
+            ckeditor: () => this.ckeditor(),
+            ckeditor5: () => this.ckeditor5(),
+            simplemde: () => this.simpleMDE(),
+            slick: () => this.slick(),
+            datepicker: () => this.datepicker(),
+            colorpicker: () => this.colorpicker(),
+            'masked-inputs': () => this.maskedInputs(),
+            select2: () => this.select2(),
+            highlightjs: () => this.highlightjs(),
+            notify: (options) => this.notify(options),
+            'easy-pie-chart': () => this.easyPieChart(),
+            maxlength: () => this.maxlength(),
+            rangeslider: () => this.rangeslider(),
+            sparkline: () => this.sparkline(),
+            validation: () => this.validation(),
+            'pw-strength': () => this.pwstrength(),
+            flatpickr: () => this.flatpickr()
+        };
 
-       if (helpers instanceof Array) {
-           for (let index in helpers) {
-               if (helperList[helpers[index]]) {
-                   helperList[helpers[index]](options);
-               }
-           }
-       } else {
-           if (helperList[helpers]) {
-               helperList[helpers](options);
-           }
-       }
-   }
+        if (helpers instanceof Array) {
+            for (let index in helpers) {
+                if (helperList[helpers[index]]) {
+                    helperList[helpers[index]](options);
+                }
+            }
+        } else {
+            if (helperList[helpers]) {
+                helperList[helpers](options);
+            }
+        }
+    }
 
     /*
      ********************************************************************************************
@@ -163,7 +163,7 @@ export default class Helpers {
 
             // Add .js-custom-file-input-enabled class to tag it as activated
             el.addClass('js-custom-file-input-enabled').on('change', e => {
-                let fileName = (e.target.files.length > 1) ? e.target.files.length + ' ' + (el.data('lang-files') || 'Files') : e.target.files[0].name;
+                let fileName = (e.target.files.length > 1) ? e.target.files.length + ' ' + (el.data('lang-files') || 'File') : e.target.files[0].name;
 
                 el.next('.custom-file-label').css('overflow-x', 'hidden').html(fileName);
             });
@@ -186,16 +186,16 @@ export default class Helpers {
      */
     static coreToggleClass() {
         jQuery('[data-toggle="class-toggle"]:not(.js-class-toggle-enabled)')
-                .add('.js-class-toggle:not(.js-class-toggle-enabled)')
-                .on('click.pixelcave.helpers.core', e => {
-            let el = jQuery(e.currentTarget);
+            .add('.js-class-toggle:not(.js-class-toggle-enabled)')
+            .on('click.pixelcave.helpers.core', e => {
+                let el = jQuery(e.currentTarget);
 
-            // Add .js-class-toggle-enabled class to tag it as activated and then blur it
-            el.addClass('js-class-toggle-enabled').trigger('blur');
+                // Add .js-class-toggle-enabled class to tag it as activated and then blur it
+                el.addClass('js-class-toggle-enabled').trigger('blur');
 
-            // Toggle class
-            jQuery(el.data('target').toString()).toggleClass(el.data('class').toString());
-        });
+                // Toggle class
+                jQuery(el.data('target').toString()).toggleClass(el.data('class').toString());
+            });
     }
 
     /*
@@ -305,32 +305,32 @@ export default class Helpers {
                     position: 'relative',
                     'z-index': 1
                 }).on('click.pixelcave.helpers.core', e => {
-                    let cssClass = 'click-ripple', ripple, d, x, y;
+                let cssClass = 'click-ripple', ripple, d, x, y;
 
-                    // If the ripple element doesn't exist in this element, add it..
-                    if (el.children('.' + cssClass).length === 0) {
-                        el.prepend('<span class="' + cssClass + '"></span>');
-                    }
-                    else { // ..else remove .animate class from ripple element
-                        el.children('.' + cssClass).removeClass('animate');
-                    }
+                // If the ripple element doesn't exist in this element, add it..
+                if (el.children('.' + cssClass).length === 0) {
+                    el.prepend('<span class="' + cssClass + '"></span>');
+                }
+                else { // ..else remove .animate class from ripple element
+                    el.children('.' + cssClass).removeClass('animate');
+                }
 
-                    // Get the ripple element
-                    ripple = el.children('.' + cssClass);
+                // Get the ripple element
+                ripple = el.children('.' + cssClass);
 
-                    // If the ripple element doesn't have dimensions, set them accordingly
-                    if(!ripple.height() && !ripple.width()) {
-                        d = Math.max(el.outerWidth(), el.outerHeight());
-                        ripple.css({height: d, width: d});
-                    }
+                // If the ripple element doesn't have dimensions, set them accordingly
+                if(!ripple.height() && !ripple.width()) {
+                    d = Math.max(el.outerWidth(), el.outerHeight());
+                    ripple.css({height: d, width: d});
+                }
 
-                    // Get coordinates for our ripple element
-                    x = e.pageX - el.offset().left - ripple.width()/2;
-                    y = e.pageY - el.offset().top - ripple.height()/2;
+                // Get coordinates for our ripple element
+                x = e.pageX - el.offset().left - ripple.width()/2;
+                y = e.pageY - el.offset().top - ripple.height()/2;
 
-                    // Position the ripple element and add the class .animate to it
-                    ripple.css({top: y + 'px', left: x + 'px'}).addClass('animate');
-                });
+                // Position the ripple element and add the class .animate to it
+                ripple.css({top: y + 'px', left: x + 'px'}).addClass('animate');
+            });
         });
     }
 
@@ -346,12 +346,12 @@ export default class Helpers {
      ********************************************************************************************
      */
 
-     /*
-      * Print Page functionality
-      *
-      * Helpers.run('print');
-      *
-      */
+    /*
+     * Print Page functionality
+     *
+     * Helpers.run('print');
+     *
+     */
     static print() {
         // Store all #page-container classes
         let lPage = jQuery('#page-container');
@@ -388,12 +388,12 @@ export default class Helpers {
             // When a row is clicked in tbody.js-table-sections-header
             jQuery('.js-table-sections-header > tr', table).on('click.pixelcave.helpers', e => {
                 if (e.target.type !== 'checkbox'
-                        && e.target.type !== 'button'
-                        && e.target.tagName.toLowerCase() !== 'a'
-                        && !jQuery(e.target).parent('a').length
-                        && !jQuery(e.target).parent('button').length
-                        && !jQuery(e.target).parent('.custom-control').length
-                        && !jQuery(e.target).parent('label').length) {
+                    && e.target.type !== 'button'
+                    && e.target.tagName.toLowerCase() !== 'a'
+                    && !jQuery(e.target).parent('a').length
+                    && !jQuery(e.target).parent('button').length
+                    && !jQuery(e.target).parent('.custom-control').length
+                    && !jQuery(e.target).parent('label').length) {
                     let row    = jQuery(e.currentTarget);
                     let tbody  = row.parent('tbody');
 
@@ -457,12 +457,12 @@ export default class Helpers {
             // When a row is clicked in tbody
             jQuery('tbody > tr', table).on('click.pixelcave.helpers', e => {
                 if (e.target.type !== 'checkbox'
-                        && e.target.type !== 'button'
-                        && e.target.tagName.toLowerCase() !== 'a'
-                        && !jQuery(e.target).parent('a').length
-                        && !jQuery(e.target).parent('button').length
-                        && !jQuery(e.target).parent('.custom-control').length
-                        && !jQuery(e.target).parent('label').length) {
+                    && e.target.type !== 'button'
+                    && e.target.tagName.toLowerCase() !== 'a'
+                    && !jQuery(e.target).parent('a').length
+                    && !jQuery(e.target).parent('button').length
+                    && !jQuery(e.target).parent('.custom-control').length
+                    && !jQuery(e.target).parent('label').length) {
                     let checkbox       = jQuery('input:checkbox', e.currentTarget);
                     let checkedStatus  = checkbox.prop('checked');
 
@@ -599,6 +599,7 @@ export default class Helpers {
      * <div id="js-ckeditor5-inline">Hello inline CKEditor 5!</div>
      *
      */
+
     static ckeditor5() {
         // Init inline text editor
         if (jQuery('#js-ckeditor5-inline:not(.js-ckeditor5-inline-enabled)').length) {
@@ -616,79 +617,85 @@ export default class Helpers {
         }
 
         // Init full text editor
-        if (jQuery('#js-ckeditor5-classic:not(.js-ckeditor5-classic-enabled)').length) {
-            ClassicEditor
-                .create( document.querySelector( '#js-ckeditor5-classic'),{
-                    toolbar: {
-					items: [
-						'heading',
-						'|',
-						'undo',
-						'redo',
-						'|',
-						'bold',
-						'italic',
-						'|',
-						'fontSize',
-						'fontFamily',
-						'fontColor',
-						'|',
-						'bulletedList',
-						'numberedList',
-						'|',
-						'outdent',
-						'indent',
-						'|',
-						'pageBreak',
-						'|',
-						'link',
-						'imageUpload',
-						'imageInsert',
-						'mediaEmbed',
-						'|',
-						'specialCharacters',
-						'blockQuote',
-						'insertTable'
-					]
-				},
-				language: 'nl',
-				image: {
-					toolbar: [
-						'imageTextAlternative',
-						'imageStyle:full',
-						'imageStyle:side',
-						'linkImage'
-					]
-				},
-				table: {
-					contentToolbar: [
-						'tableColumn',
-						'tableRow',
-						'mergeTableCells',
-						'tableCellProperties',
-						'tableProperties'
-					]
-				}, licenseKey: '',
-                    uploadUrl:'/api/v1/images/upload',
-                    filebrowserUploadUrl:'/api/v1/images/upload',
-                    filebrowserUploadMethod: 'form',
-                    simpleUpload: {
-                        // The URL that the images are uploaded to.
-                        uploadUrl: '/api/v1/images/upload'
-                    }
-                })
-                .then( editor => {
-                    window.editor = editor;
-                } )
-                .catch( error => {
-                    console.error( 'Oops, something went wrong!' );
-                    console.error( 'There was a problem initializing the classic editor.', error );
-                } );
 
-            // Add .js-ckeditor5-classic-enabled class to tag it as activated
-            jQuery('#js-ckeditor5-classic').addClass('js-ckeditor5-classic-enabled');
+        var allEditors = document.querySelectorAll('.js-ckeditor5-classic');
+        for (var i = 0; i < allEditors.length; ++i) {
+            if(!allEditors[i].classList.contains('js-ckeditor5-classic-enabled')){
+                ClassicEditor
+                    .create(  allEditors[i],{
+                        toolbar: {
+                            items: [
+                                '|',
+                                'heading',
+                                '|',
+                                'undo',
+                                'redo',
+                                '|',
+                                'fontFamily',
+                                'fontColor',
+                                'fontSize',
+                                'bold',
+                                'italic',
+                                'blockQuote',
+                                '|',
+                                'alignment',
+                                'bulletedList',
+                                'numberedList',
+                                'outdent',
+                                'indent',
+                                'pageBreak',
+                                'insertTable',
+                                '|',
+                                'link',
+                                'imageUpload',
+                                'mediaEmbed'
+                            ]
+                        },
+                        language: 'nl',
+                        image: {
+                            toolbar: [
+                                'imageTextAlternative',
+                                'imageStyle:full',
+                                'imageStyle:side'
+                            ]
+                        },
+                        table: {
+                            contentToolbar: [
+                                'tableColumn',
+                                'tableRow',
+                                'mergeTableCells',
+                                'tableCellProperties',
+                                'tableProperties'
+                            ]
+                        },
+                        licenseKey: '',
+                        simpleUpload: {
+                            // The URL that the files are uploaded to.
+                            uploadUrl: '/api/v1/files/upload',
+
+                            // Enable the XMLHttpRequest.withCredentials property.
+                            withCredentials: false,
+
+                            // Headers sent along with the XMLHttpRequest to the upload server.
+                            headers: {
+                            }
+                        }
+                    })
+                    .then( editor => {
+                        window.editor = editor;
+                    } )
+                    .catch( error => {
+                        console.error( 'Oops, something went wrong!' );
+                        console.error( 'There was a problem initializing the classic editor.', error );
+                    } );
+                console.log('added')
+                // Add .js-ckeditor5-classic-enabled class to tag it as activated
+                jQuery(allEditors[i]).addClass('js-ckeditor5-classic-enabled');
+            }
         }
+
     }
+
 
     /*
      * SimpleMDE init, for more examples you can check out https://github.com/NextStepWebs/simplemde-markdown-editor

@@ -1,3 +1,14 @@
-<div>
-    <!-- Knowing is not enough; we must apply. Being willing is not enough; we must do. - Leonardo da Vinci -->
+<div  wire:ignore>
+    @php
+        $unique = Str::random()
+    @endphp
+
+   <script>
+        $(document).ready(function() {
+            jQuery(function(){
+                Dashmix.helpers('ckeditor5');
+            });
+        });
+    </script>
 </div>
+

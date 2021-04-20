@@ -39,7 +39,7 @@
                         <a class="nav-link" href="#wizard-simple2-step3" data-toggle="tab">3. Contact gegevens</a>
                     </li>
                 </ul>
-                <form action="{{ route('klanten.store') }}" method="POST">
+                <form action="{{ route('customers.store') }}" method="POST">
                     @csrf
                     <div class="block-content block-content-full tab-content" style="min-height: 290px;">
                         <div class="tab-pane active" id="wizard-simple2-step1" role="tabpanel">

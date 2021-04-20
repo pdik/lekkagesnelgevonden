@@ -30,7 +30,7 @@
                     <h2 class="h4 font-w700 text-white-75">
                         {{ $customer->first_name }} {{ $customer->last_name }}
                     </h2>
-                    <a class="btn btn-hero-dark" href="{{ route('klanten.index') }}">
+                    <a class="btn btn-hero-dark" href="{{ route('customers.index') }}">
                         <i class="fa fa-fw fa-arrow-left"></i> Terug naar overzicht
                     </a>
                 </div>
@@ -40,9 +40,9 @@
     <div class="content content-full content-boxed">
         <div class="block block-rounded">
             <div class="block-content">
-                <form  method="POST" enctype="multipart/form-data"  action="{{route('klanten.update',['klanten'=> $customer->id])}}">
+                <form  method="POST"  action="{{route('customers.update',['customer'=>$customer->id])}}">
                     @csrf
-                    @method('PUT')
+                    @method('put')
                     <h2 class="content-heading pt-0">
                         <i class="fa fa-fw fa-user-circle text-muted mr-1"></i> Klant gegevens
                     </h2>
@@ -56,14 +56,17 @@
                             <div class="form-group">
                                 <label for="dm-profile-edit-username">Voornaam</label>
                                 <input type="text" class="form-control" id="dm-profile-edit-username" name="first_name" placeholder="Enter the customer name.." value="{{$customer->first_name}}">
+                                  @error('first_name') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label for="dm-profile-edit-name">Achternaam</label>
                                 <input type="text" class="form-control" id="dm-profile-edit-name" name="last_name" placeholder="Enter your name.." value="{{$customer->last_name}}">
+                                    @error('last_name') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label for="dm-profile-edit-email">Bedrijf (Optioneel)</label>
                                 <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Has the customer a company? enter it" value="{{$customer->company_name}}">
+                                  @error('company_name') <span class="error">{{ $message }}</span> @enderror
                             </div>
 
                         </div>
@@ -81,17 +84,20 @@
                             <div class="form-group">
                                 <label for="dm-profile-edit-password">Adres</label>
                                 <input type="text" class="form-control" id="dm-profile-edit-password" name="adres" value="{{$customer->adres}}">
+                                 @error('adres') <span class="error">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label for="dm-profile-edit-password-new">Plaatsnaam</label>
                                     <input type="text" class="form-control" id="dm-profile-edit-password-new" name="placename" value="{{$customer->placename}}">
+                                    @error('placename') <span class="error">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label for="dm-profile-edit-password-new-confirm">Postcode</label>
                                     <input type="text" class="form-control" id="dm-profile-edit-password-new-confirm" name="postalcode" value="{{$customer->postalcode}}">
+                                    @error('postalcode') <span class="error">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

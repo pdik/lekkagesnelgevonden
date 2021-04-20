@@ -56,7 +56,7 @@
                     </div>
                     <div class="block-content bg-body-light text-center">
                         <h3 class="font-size-h4 font-w700 mb-1">
-                            <a href="be_pages_projects_tasks.html">{{ $report->customer->first_name }} {{ $report->customer->last_name }}</a>
+                            <a href="{{route('rapport.show', $report->id)}}">{{ $report->customer->first_name }} {{ $report->customer->last_name }}</a>
                         </h3>
                         <h4 class="font-size-h6 text-muted mb-3"></h4>
                         <div class="push">
@@ -67,12 +67,12 @@
                         <div class="row gutters-tiny">
                             <div class="col-6">
                                 <a class="btn btn-block btn-alt-primary" href="{{ route('rapport.show',$report) }}">
-                                    <i class="fa fa-eye mr-1 opacity-50"></i> Bekijk
+                                    <i class="fa fa-eye mr-1 opacity-50"></i> {{__('global.view')}}
                                 </a>
                             </div>
                             <div class="col-6">
                                 <a class="btn btn-block btn-alt-primary" href="javascript:void(0)">
-                                    <i class="fa fa-edit mr-1 opacity-50"></i> Bewerk
+                                    <i class="fa fa-edit mr-1 opacity-50"></i> {{ __('global.downloadFile')}}
                                 </a>
                             </div>
                         </div>

@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Api\V1\ImageController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\CurrentTeamController;
 use Laravel\Jetstream\Http\Controllers\Livewire\ApiTokenController;
@@ -39,9 +41,20 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
         })->name('dashboard');
         Route::resources([
             'rapport' => \App\Http\Controllers\ReportController::class,
-            'klanten' => \App\Http\Controllers\CustomersController::class
+            'customers' => \App\Http\Controllers\CustomersController::class
         ]);
+        Route::middleware(['permission:admin.settings.view'])->group(function () {
 
+        });
+        /**
+         * Items
+         */
+        Route::get('/items',  App\Http\Livewire\Item\Table::class)->name('items');
+        Route::get('/items/item/{id?}',  App\Http\Livewire\Item\Item::class)->name('items.item');
+
+        Route::get('/file/{fileName}', [\App\Http\Controllers\Api\V1\ImageController::class, 'getImage'])->name('file');
+        Route::get('/thumbnail/{fileName}', [\App\Http\Controllers\Api\V1\ImageController::class, 'getThumbnail'])->name('thumbnail');
+        Route::post('/file/edit', [ImageController::class, 'postEdit'])->name('editFile');
         Route::get('/user/profile', [UserProfileController::class, 'show'])
             ->name('profile.show');
 

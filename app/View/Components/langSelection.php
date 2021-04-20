@@ -23,6 +23,6 @@ class langSelection extends Component
      */
     public function render()
     {
-        return view('components.lang-selection');
+        return view('components.langSelection');
     }
 }
