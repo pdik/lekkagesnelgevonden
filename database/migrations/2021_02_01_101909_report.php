@@ -19,6 +19,7 @@ class Report extends Migration
             $table->unsignedBigInteger('customer_id')->index();
             $table->string('status')->default('1');
             $table->longText('data');
+            $table->longText('advice')->nullable();
             $table->string('path')->nullable(); //path of stored report
             $table->unsignedBigInteger('created_by')->index();
             $table->foreign('created_by')->references('id')->on('users');

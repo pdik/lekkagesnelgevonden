@@ -43,18 +43,23 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
             'rapport' => \App\Http\Controllers\ReportController::class,
             'customers' => \App\Http\Controllers\CustomersController::class
         ]);
+        Route::get('rapport/download/pdf/{id?}',[\App\Http\Controllers\ReportController::class, 'generatPdf'] );
+        Route::get('rapport/{id?}/view',[\App\Http\Controllers\ReportController::class, 'show'] );
         Route::middleware(['permission:admin.settings.view'])->group(function () {
 
         });
+           Route::get('/files', function () {
+               return view('library');
+            })->name('files');
+
         /**
          * Items
          */
         Route::get('/items',  App\Http\Livewire\Item\Table::class)->name('items');
         Route::get('/items/item/{id?}',  App\Http\Livewire\Item\Item::class)->name('items.item');
 
-        Route::get('/file/{fileName}', [\App\Http\Controllers\Api\V1\ImageController::class, 'getImage'])->name('file');
-        Route::get('/thumbnail/{fileName}', [\App\Http\Controllers\Api\V1\ImageController::class, 'getThumbnail'])->name('thumbnail');
-        Route::post('/file/edit', [ImageController::class, 'postEdit'])->name('editFile');
+        Route::post('/file/uplaud', [\App\Http\Controllers\Api\V1\ImageController::class, 'upload'])->name('file.upload');
+
         Route::get('/user/profile', [UserProfileController::class, 'show'])
             ->name('profile.show');
 

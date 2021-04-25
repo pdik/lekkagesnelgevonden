@@ -9,7 +9,7 @@ class report extends Model
 {
     use HasFactory;
     public $table = 'report';
-    protected $fillable = ['created_at','updated_at','customer_id','status','data','created_by'];
+    protected $fillable = ['created_at','updated_at','customer_id','status','data','created_by','advice'];
     protected $primaryKey = 'id';
 
     /**
@@ -31,5 +31,8 @@ class report extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+    public function rows(){
+        return $this->hasMany(report_rows::class);
     }
 }

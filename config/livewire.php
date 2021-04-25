@@ -71,7 +71,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Livewire Temporary File Uploads Endpoint Configuration
+    | Livewire Temporary Files Uploads Endpoint Configuration
     |--------------------------------------------------------------------------
     |
     | Livewire handles file uploads by storing uploads in a temporary directory
@@ -96,7 +96,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Manifest File Path
+    | Manifest Files Path
     |--------------------------------------------------------------------------
     |
     | This value sets the path to the Livewire manifest file.

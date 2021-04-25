@@ -23,6 +23,7 @@
           <link rel="stylesheet" href="{{ mix('css/app.css') }}">
          @livewireStyles
          @livewireScripts
+        @laravelUltimateLibraryAssets
          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
         <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
@@ -275,18 +276,25 @@
 {{--                                </a>--}}
 {{--                            </li>--}}
                               <li class="nav-main-heading">Items</li>
-                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{ route('items.item') }}">
-                                    <i class="nav-main-link-icon fa fa-file-invoice-dollar"></i>
-                                    <span class="nav-main-link-name">Creeren</span>
-                                </a>
-                            </li>
+                                 <li class="nav-main-item">
+                                    <a class="nav-main-link" href="{{ route('items.item') }}">
+                                        <i class="nav-main-link-icon fa fa-file-invoice-dollar"></i>
+                                        <span class="nav-main-link-name">Creeren</span>
+                                    </a>
+                                </li>
                                 <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('items') }}">
                                        <i class="nav-main-link-icon fa fa-clipboard-list"></i>
                                     <span class="nav-main-link-name">Overzicht</span>
                                 </a>
                             </li>
+                            <li class="nav-main-heading">Bestanden</li>
+                                 <li class="nav-main-item">
+                                    <a class="nav-main-link" href="{{ route('files') }}">
+                                        <i class="nav-main-link-icon fa fa-file-invoice-dollar"></i>
+                                        <span class="nav-main-link-name">Bekijk</span>
+                                    </a>
+                                 </li>
                             @can('admin.settings.view')
                             <li class="nav-main-heading">Settings</li>
                                <li class="nav-main-item">
@@ -449,7 +457,7 @@
         <!-- END Page Container -->
 
         <!-- Dashmix Core JS -->
-        <script src="{{ asset('js/plugins/ckeditor.js') }}" type="module"></script>
+        <script src="{{ asset('js/plugins/editor.js') }}" type="module"></script>
         <script src="{{ mix('js/dashmix.app.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
         <script src="{{ asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>

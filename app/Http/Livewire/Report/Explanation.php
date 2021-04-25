@@ -2,15 +2,13 @@
 
 namespace App\Http\Livewire\Report;
 
-use App\Http\Livewire\Item\Item;
-use App\Http\Livewire\Traits\WithUpdateValues;
 use App\Models\Items;
 use Livewire\Component;
 
 class Explanation extends Component
 {
     protected $listeners = ['itemAdded' => 'itemAdded'];
-    public $selected = [], $items = [];
+    public $selected = [], $items = [], $files = [];
     public function itemAdded($value){
      $this->selected = $value;
      $this->getSelectedItems();

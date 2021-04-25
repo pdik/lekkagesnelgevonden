@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Helper;
 use App\Http\Controllers\Controller;
-use App\Models\File;
+Use Pdik\LaravelLibrary\Models\Files;
 use App\Models\Items;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -32,27 +34,29 @@ class ImageController extends Controller
      */
     public function upload(Request $request)
     {
+        $file = '';
         if ($request->hasFile('upload')) {
 
             $extension = $request->file('upload')->getClientOriginalExtension();
             $name =str_replace('.' . $extension, "", $request->file('upload')->getClientOriginalName());
-            $file = File::where('name',$name)->first();
-            if($file == null){
+
+            $file = Files::where('name',$name)->first();
+            if(empty($file)){
                 $randomName = Carbon::now()->timestamp . Str::random();
-                $path = $request->file('upload')->storeAs('files', $randomName . '.' . $extension);
-                $file = new File;
+                $path = $request->file('upload')->storeAs('files', $randomName . '.' . strtolower($extension),  'public' );
+                $file = new Files;
                 $file->name = $name;
                 $file->file_name = $randomName;
-                $file->extension = $extension;
+                $file->extension = strtolower($extension);
                 $file->size = $request->file('upload')->getSize();
                 $file->folder_id = 0;
                 $file->save();
-                $this->generateThumbnail($file);
+                //$this->generateThumbnail($file);
             }
-            return  array(
-                'url' => route('file', [$file->name])
-            );
         }
+           return array(
+                    'url' =>  $this->getImageCkeditor($file->name)
+            );
     }
     /**
      * Get the current file from the storage.
@@ -66,50 +70,14 @@ class ImageController extends Controller
      */
     public function getImage(string $fileName)
     {
-        $file = File::where('name', '=', $fileName)->firstOrFail();
+        $file = Files::where('name', '=', $fileName)->first();
         return response()->file(storage_path('app/files/' . $file->file_name . '.' . $file->extension));
     }
-    private function generateThumbnail(File $file)
-    {
-        if (in_array(strtolower($file->extension), File::$imageExtensions)) {
-            Helper::generateImageThumbnail($file);
-        } else if (in_array(strtolower($file->extension), File::$videoExtensions)) {
-            Helper::generateVideoThumbnail($file);
-        }
+    //test
+    public function getImageCkeditor(string $fileName){
+        $file = Files::where('name', '=', $fileName)->firstOrFail();
+        return Storage::url('files/' . $file->file_name . '.' . $file->extension);
     }
-    public function getThumbnail($fileName)
-    {
-        return Cache::rememberForever('thumbnail-' . $fileName, function () use ($fileName) {
-            $file = File::where('name', '=', $fileName)->firstOrFail();
-            return File::make(File::get(storage_path('app/files/thumbnails/' . $file->file_name . '.jpg')))->response();
-        });
-    }
-    /**
-     * When an image is edited with TUI image editor save it to the storage/database.
-     *
-     * @param Request $request {file name, file extension, image, current folder}
-     *
-     * @return File file
-     *@author Pepijn dik <pepijn@pdik.nl>
-     *
-     * @since 11/03/2021
-     */
-    public function postEdit(Request $request)
-    {
-        $file = new File();
-        $file->name = $request->name . '_' . Str::random(2);
-        $file->file_name = Carbon::now()->timestamp . Str::random();
-        $file->extension = $request->extension;
-        $file->size = strlen(base64_decode($request->image));
-        $file->folder_id = $request->folder;
-        $file->user_id = Auth::id();
-        $file->save();
 
-        $image = preg_replace('/^data:image\/\w+;base64,/', '', $request->image);
-        Storage::put('/files/' . $file->file_name . '.' . $file->extension, base64_decode($image));
-
-        Helper::generateImageThumbnail($file);
-        return $file;
-    }
 
 }

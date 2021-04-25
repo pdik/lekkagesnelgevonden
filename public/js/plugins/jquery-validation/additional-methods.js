@@ -930,7 +930,7 @@ $.validator.addMethod( "maxsize", function( value, element, param ) {
 	}
 
 	return true;
-}, $.validator.format( "File size must not exceed {0} bytes each." ) );
+}, $.validator.format( "Files size must not exceed {0} bytes each." ) );
 
 // Limit the size of all files in a FileList.
 $.validator.addMethod( "maxsizetotal", function( value, element, param ) {

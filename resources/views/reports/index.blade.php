@@ -71,7 +71,7 @@
                                                 <em class="text-muted">{{ \Carbon\Carbon::createFromTimeString($report->created_at)->locale('nl')->diffForHumans() }}</em>
                                             </td>
                                             <td>
-                                                {{ dd($report->user()) }}
+                                                {{ $report->user->name }}
                                             </td>
                                             <td>
                                                 <div class="btn btn-group">

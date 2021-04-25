@@ -291,7 +291,7 @@ var Helpers = /*#__PURE__*/function () {
       });
     }
     /*
-     * Bootstrap Custom File Input Filename
+     * Bootstrap Custom Files Input Filename
      *
      * Helpers.run('core-bootstrap-custom-file-input');
      *
@@ -764,7 +764,22 @@ var Helpers = /*#__PURE__*/function () {
             },
             language: 'nl',
             image: {
-              toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
+              styles: ['alignLeft', 'alignCenter', 'alignRight'],
+              // Configure the available image resize options.
+              resizeOptions: [{
+                name: 'resizeImage:original',
+                label: 'Original',
+                value: null
+              }, {
+                name: 'resizeImage:50',
+                label: '50%',
+                value: '50'
+              }, {
+                name: 'resizeImage:75',
+                label: '75%',
+                value: '75'
+              }],
+              toolbar: ['imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight', '|', 'side', 'resizeImage', '|', 'imageTextAlternative']
             },
             table: {
               contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableCellProperties', 'tableProperties']

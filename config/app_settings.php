@@ -20,7 +20,22 @@ return [
                     'rules' => 'required|min:2|max:20', // validation rules for this input
                     'value' => 'Pdik systems', // any default value
                     'hint' => 'Je kan hier je bedrijfs naam  invullen' // help block text for input
-                ], [
+                ],
+                    [
+                    'name' => 'Business_email',
+                    'type' => 'email',
+                    'label' => 'Email',
+                    'placeholder' => 'info@example.com',
+                        'rules' => 'required|min:4|email'
+                ],
+                  [
+                    'name' => 'Business_phone',
+                    'type' => 'number',
+                    'label' => 'Phone number',
+                    'placeholder' => '08004676511',
+                        'rules' => 'required|min:4'
+                ],
+                [
                     'name' => 'Business_adres',
                     'type' => 'text',
                     'label' => 'Adres',
@@ -52,8 +67,8 @@ return [
                     'path' => 'app', // path on the disk,
                     'preview_class' => 'thumbnail',
                     'preview_style' => 'height:40px'
-                ]
-            ]
+                ],
+            ],
         ],
         'email' => [
             'title' => 'SMTP mail settings',
@@ -135,6 +150,13 @@ return [
                      'value="#db4a39"',
                     'rules' => 'required|min:4'
                 ],
+                   [
+                       'name' => 'report_item_name',
+                       'type' => 'text',
+                       'label' => 'Korte naam voor gebruikte items',
+                       'placeholder' => 'Gebruikte items',
+                       'rules' => 'required|min:4'
+                   ],
                     [
                     'name' => 'report_prefix',
                     'type' => 'text',

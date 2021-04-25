@@ -18,6 +18,7 @@ class ReportRows extends Migration
             $table->unsignedBigInteger('method_id')->index();
             $table->longText('data');
             $table->unsignedBigInteger('report_id')->index();
+            $table->string('images')->nullable(); //A array of images id's
             $table->foreign('report_id')->references('id')->on('report')->onDelete('cascade');
         });
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class report_rows extends Model
 {
     use HasFactory;
-    protected $fillable = ['method_id', 'data','report_id'];
+    protected $fillable = ['method_id', 'data','report_id','images'];
     public $timestamps = false;
     public function item(){
         return $this->belongsTo(Items::class,'method_id');

@@ -147,7 +147,7 @@ export default class Helpers {
     }
 
     /*
-     * Bootstrap Custom File Input Filename
+     * Bootstrap Custom Files Input Filename
      *
      * Helpers.run('core-bootstrap-custom-file-input');
      *
@@ -653,10 +653,34 @@ export default class Helpers {
                         },
                         language: 'nl',
                         image: {
+                               styles: [
+                                    'alignLeft', 'alignCenter', 'alignRight'
+                                ],
+                             // Configure the available image resize options.
+                            resizeOptions: [
+                                {
+                                    name: 'resizeImage:original',
+                                    label: 'Original',
+                                    value: null
+                                },
+                                {
+                                    name: 'resizeImage:50',
+                                    label: '50%',
+                                    value: '50'
+                                },
+                                {
+                                    name: 'resizeImage:75',
+                                    label: '75%',
+                                    value: '75'
+                                }
+                            ],
                             toolbar: [
-                                'imageTextAlternative',
-                                'imageStyle:full',
-                                'imageStyle:side'
+                                 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+                                '|',
+                                'side',
+                                'resizeImage',
+                                '|',
+                                'imageTextAlternative'
                             ]
                         },
                         table: {

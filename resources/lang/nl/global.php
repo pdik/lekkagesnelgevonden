@@ -73,7 +73,7 @@ return [
     'answer'                               => 'Answer',
     'app_csv_file_to_import'               => 'CSV file to import',
     'app_csvImport'                        => 'CSV Import',
-    'app_file_contains_header_row'         => 'File contains header row?',
+    'app_file_contains_header_row'         => 'Files contains header row?',
     'app_import_data'                      => 'Import data',
     'app_imported_rows_to_table'           => 'Imported :rows rows to :table table',
     'app_parse_csv'                        => 'Parse CSV',
@@ -142,8 +142,8 @@ return [
     'faq_management'                       => 'FAQ Management',
     'featured_image'                       => 'Featured image',
     'fee_percent'                          => 'Fee percent',
-    'file'                                 => 'File',
-    'file_contains_header_row'             => 'File contains header row?',
+    'file'                                 => 'Files',
+    'file_contains_header_row'             => 'Files contains header row?',
     'first_name'                           => 'First name',
     'group_by'                             => 'Group by',
     'if_you_are_having_trouble'            => 'If you’re having trouble clicking the',
@@ -260,7 +260,7 @@ return [
     'methods'                              => 'Methodes',
     'next'                                 => 'Volgende',
     'prev'                                 => 'Vorige',
-    'detials'                              => 'Detials',
+
     'no_results_found'                     => 'Geen resultaten gevonden',
     'lang'                                 => 'Taal',
     'state'                                => 'status',
@@ -276,5 +276,13 @@ return [
     'welcome_back'                         => 'Welkom terug',
     'created'                              => 'Aangemaakt',
     'Sended'                               => 'Verstuurd',
-    'Readed'                               => 'Gelezen'
+    'Readed'                               => 'Gelezen',
+    'detials'                              => [
+        'title'                            => 'Detials',
+        'email'                            => 'Email addres',
+        'phone'                            => 'Tel Nmr',
+        'kvk'                              => 'kvk'
+    ],
+    'advice'                               => 'Advies',
+    'uplaud_image'                               => 'Uplaud afbeelding'
 ];

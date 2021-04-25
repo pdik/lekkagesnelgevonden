@@ -422,7 +422,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
 
         /**
          * A function that is invoked before the file is uploaded to the server and renames the file.
-         * This function gets the `File` as argument and can use the `file.name`. The actual name of the
+         * This function gets the `Files` as argument and can use the `file.name`. The actual name of the
          * file that gets used during the upload can be accessed through `file.upload.filename`.
          */
         renameFile: null,
@@ -456,7 +456,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
          * If the filesize is too big.
          * `{{filesize}}` and `{{maxFilesize}}` will be replaced with the respective configuration values.
          */
-        dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+        dictFileTooBig: "Files is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
 
         /**
          * If the file doesn't match the file type.
@@ -1124,7 +1124,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
     key: "getAddedFiles",
     value: function getAddedFiles() {
       return this.getFilesWithStatus(Dropzone.ADDED);
-    } // File that are either queued or uploading
+    } // Files that are either queued or uploading
 
   }, {
     key: "getActiveFiles",
@@ -2930,7 +2930,7 @@ Dropzone.discover = function () {
 //
 
 
-Dropzone.blacklistedBrowsers = [// The mac os and windows phone version of opera 12 seems to have a problem with the File drag'n'drop API.
+Dropzone.blacklistedBrowsers = [// The mac os and windows phone version of opera 12 seems to have a problem with the Files drag'n'drop API.
 /opera.*(Macintosh|Windows Phone).*version\/12/i]; // Checks if the browser is supported
 
 Dropzone.isBrowserSupported = function () {

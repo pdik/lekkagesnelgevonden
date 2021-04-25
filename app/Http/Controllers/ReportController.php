@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\customers;
 use App\Models\report;
 use App\Models\report_rows;
+
+use DOMDocument;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-
+use PDF;
+use QCod\AppSettings\Setting\AppSettings;
 class ReportController extends Controller
 {
     /**
@@ -33,6 +38,20 @@ class ReportController extends Controller
     }
 
     /**
+     * Generate pdf report
+     */
+    public function generatPdf($report){
+       $report = report::findOrFail($report);
+       if($report){
+
+        $data = ['data' => $report];
+         PDF::setOptions(['isRemoteEnabled' => true,'debugPng' => true,'isPhpEnabled', true,  ]);
+        $pdf = PDF::loadView('themplates.basic.report',$data );
+        return $pdf->stream();
+       }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,6 +68,7 @@ class ReportController extends Controller
       $report->created_at = now();
       $report->updated_at = now();
       $report->status = 1;
+      $report->advice = $request['advice'];
       $report->data = $request['data'];
       $report->created_by = \Auth::user()->getAuthIdentifier();
       if($report->save()){
@@ -57,7 +77,8 @@ class ReportController extends Controller
                   report_rows::create([
                       'method_id'   => $item['id'],
                       'data'        => $item['data'],
-                      'report_id'   => $report['id']
+                      'report_id'   => $report['id'],
+                      'images'      => $item['files'],
                   ]);
               }
       }
@@ -71,6 +92,19 @@ class ReportController extends Controller
         }
     }
 
+    public static function ChangeImageForPDF($html){
+        $dom = new DOMDocument;
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html);
+        foreach ($dom->getElementsByTagName('img') as $img) {
+//            $path = App::environment('local') ? public_path($img->getAttribute('src')) : url($img->getAttribute('src'));
+//            $type = pathinfo($path, PATHINFO_EXTENSION);
+//            $data = file_get_contents($path);
+//            $img->setAttribute( 'src','data:image/' . $type . ';base64,' . base64_encode($data));
+              $img->setAttribute( 'src',substr($img->getAttribute('src'), 1));
+        }
+        return $dom->saveHTML();
+    }
     /**
      * Display the specified resource.
      *
@@ -79,7 +113,8 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-       $report = report::find($id);
+       $data['data'] = report::find($id);
+        return view('reports.view', $data);
     }
 
     /**

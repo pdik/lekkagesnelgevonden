@@ -9,13 +9,18 @@
                 <div id="accordion_q{{$item['id']}}" class="collapse" role="tabpanel" aria-labelledby="accordion_{{$item['id']}}" data-parent="#accordion" style="">
                     <div class="block-content">
                         <input type="hidden" name="item[{{$loop->index}}][id]" value="{{$item['id']}}">
+                        <livewire:image.chooser :key="'imagechooser_'.$loop->index" :index="$loop->index"/>
                         <textarea name="item[{{$loop->index}}][data]" class="js-ckeditor5-classic">{{ old('reason.'.$item['id'],__('global.description')) }}</textarea>
                     </div>
                 </div>
             </div>
         @empty
-            <h1>{{ __('global.pleaseSelect') }}</h1>
+            <h3>{{ __('global.pleaseSelect') }} {{setting()->get('report_item_name') ? : 'Items'}}</h3>
         @endforelse
+            <br>
+        <h2>{{__('global.advice')}}  </h2>
+        <textarea name="advice" class="js-ckeditor5-classic">{{ old('advice',__('global.description')) }}</textarea>
+
     </div>
 </div>
 <script>
