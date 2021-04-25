@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <h2 class="content-heading pt-0">
-                        <i class="far fa-address-book text-muted mr-1"></i> {{__('global.detials')}}
+                        <i class="far fa-address-book text-muted mr-1"></i> {{__('global.detials.title')}}
                     </h2>
                     <div class="row push">
                         <div class="col-lg-4">
