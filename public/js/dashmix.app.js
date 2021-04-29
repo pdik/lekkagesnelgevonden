@@ -958,6 +958,7 @@ var Helpers = /*#__PURE__*/function () {
   }, {
     key: "select2",
     value: function select2() {
+      var modal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       // Init Select2 (with .js-select2 class)
       jQuery('.js-select2:not(.js-select2-enabled)').each(function (index, element) {
         var el = jQuery(element); // Add .js-select2-enabled class to tag it as activated and init it

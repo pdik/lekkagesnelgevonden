@@ -33,6 +33,8 @@
         @yield('css_after')
           <script src="{{ mix('js/app.js') }}" defer></script>
         <!-- Scripts -->
+        <script src="{{ asset('js/plugins/es6-promise/es6-promise.auto.min.js')}}"></script>
+        <script src="{{ asset('js/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
     </head>
     <body>
@@ -291,8 +293,8 @@
                             <li class="nav-main-heading">Bestanden</li>
                                  <li class="nav-main-item">
                                     <a class="nav-main-link" href="{{ route('files') }}">
-                                        <i class="nav-main-link-icon fa fa-file-invoice-dollar"></i>
-                                        <span class="nav-main-link-name">Bekijk</span>
+                                        <i class="nav-main-link-icon far fa-file-image"></i>
+                                        <span class="nav-main-link-name">Beheer</span>
                                     </a>
                                  </li>
                             @can('admin.settings.view')
@@ -461,6 +463,7 @@
         <script src="{{ mix('js/dashmix.app.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
         <script src="{{ asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+
 {{--        <script src="{{ asset('js/pages/be_comp_chat.js')}}"></script>--}}
 {{--        <script src="{{ asset('js/plugins/cropperjs/cropper.js')}}"></script>--}}
 {{--        <script src="{{asset('js/pages/be_comp_image_cropper.js')}}"></script>--}}

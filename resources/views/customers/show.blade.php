@@ -116,7 +116,68 @@
                         <livewire:customer.editdetials :id="$customer->id"></livewire:customer.editdetials>
                         </div>
                     </div>
+                    @if($customer->has('reports'))
+                             <h2 class="content-heading pt-0">
+                        <i class="far fa-clipboard text-muted mr-1"></i> {{__('global.reports')}}
+                    </h2>
+                    <div class="row push">
+                        <div class="col-lg-3">
+                            <p class="text-muted">
+                                Een overzicht met alle rapporten voor deze klant
+                            </p>
+                        </div>
+                        <div class="col-lg-8 col-xl-8">
+                            <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination dataTable no-footer" id="DataTables_Table_2" role="grid" aria-describedby="DataTables_Table_2_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="text-center sorting_asc" style="width: 80px;" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending">#</th>
+                                           <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Plaatsnaam: activate to sort column ascending">Plaatsnaam</th>
+                                        <th class="d-none d-sm-table-cell sorting" style="width: 15%;" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Report status: activate to sort column ascending">Status</th>
+                                        <th style="width: 15%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="aangemaakt: activate to sort column ascending">aangemaakt op</th>
+                                         <th style="width: 15%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Created by: activate to sort column ascending">aangemaakt door</th>
+                                        <th style="width: 15%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Actie: Voer een bepaalde actie uit">Actie</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($customer->reports as $report)
+                                        <tr role="row" class="odd">
+                                            <td class="text-center sorting_1" style="width: 10px;">{{ $report->id }}</td>
+                                            <td class="font-w600 ">{{ $report->customer->placename }} {{ $report->customer->adres }}</td>
+                                            <td class="d-none d-sm-table-cell">
+                                                @if($report->status == "1")
+                                                    <span class="badge badge-info">{{__('global.created')}}</span>
+                                                @elseif($report->status == "2")
+                                                    <span class="badge badge-success">{{__('global.Sended')}}</span>
+                                                @elseif($report->status == "3")
+                                                    <span class="badge badge-success">{{__('global.Readed')}}</span>
+                                                @endif
 
+                                            </td>
+                                            <td>
+                                                <em class="text-muted">{{ \Carbon\Carbon::createFromTimeString($report->created_at)->locale('nl')->diffForHumans() }}</em>
+                                            </td>
+                                            <td>
+                                                {{ $report->user->name }}
+                                            </td>
+                                            <td>
+                                                <div class="btn btn-group">
+                                                    <a href="{{ route('rapport.edit', $report->id) }}" class="btn btn-info">Bewerk</a>
+                                                    <form action="{{ route('rapport.destroy', $report->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+
+                        </div>
+                    </div>
+
+                        @endif
                     <div class="row push">
                         <div class="col-lg-8 col-xl-5 offset-lg-4">
                             <div class="form-group">

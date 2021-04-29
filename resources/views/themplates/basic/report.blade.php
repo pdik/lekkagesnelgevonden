@@ -3,42 +3,46 @@
 <head>
     <title>{{ setting()->get('app_name') . ' ' .  __('global.report') }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <style type="text/css">
-    .Portfolio {
-        position: relative;
-        margin: 5px;
-        border: 2px solid black;
-        float: left;
-        width: 180px;
-        transition-duration: 0.4s;
-        border-radius: 5px;
-        animation: winanim 0.5s ;
-        -webkit-backface-visibility:visible;
-        backface-visibility:visible;
-        box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 5px 8px 0 rgba(0,0,0,.14),0 1px 14px 0 rgba(0,0,0,.12)
-    }
+           .image-container {
+                border: none;
+                vertical-align: bottom;
+            }
 
-    .Portfolio:hover {
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-    }
+            .image {
+                vertical-align: bottom;
+                margin-bottom: 0px;
+                bottom: 0px;
 
-    .Portfolio img {
-        width: 100%;
-        height: auto;
-        border-radius: 5px
-    }
+                /**
+                    Optional: provide a max width to the image
+                    in case it has a higher resolution
+                **/
+                max-width: 180px;
+            }
+        .Portfolio {
+            border: 2px solid black;
+            width: 180px;
+            border-radius: 5px;
+        }
 
-    .desc {
-        padding: 5px;
-        text-align: center;
-        font-size: 90%;
-        background:black;
-        color:{{ setting()->get('rapport_headercolor') }};
-    }
 
+        .Portfolio img {
+            vertical-align: bottom;
+            margin-bottom: 0px;
+            bottom: 0px;
+            width: 100%;
+            border-radius: 5px
+        }
+
+        .desc {
+            padding: 5px;
+            text-align: center;
+            font-size: 90%;
+            background:black;
+            color: {{ setting()->get('rapport_headercolor') }};
+        }
         table,td {
             border: solid 1px #D8D8D8;
         }
@@ -62,9 +66,7 @@
             width: 1000px;
         }
 
-        .photo{
-            width: 500px;
-        }
+
         .center-cropped {
             object-fit: none; /* Do not scale the image */
             object-position: center; /* Center the image within the element */
@@ -103,13 +105,11 @@
         .first-page {
             margin: 0in;
 
-            height: 100%;
-            width: 100%;
+            height: 1200px;
+            width: 100vh;
             position:absolute;
         }
-        .first-page + * {
-            page-break-before: always;
-        }
+
         .coversheet {
             background-image: url({{ public_path().'/storage/'.setting()->get('report_coversheet')  }});
             background-position: top left;
@@ -119,49 +119,12 @@
             width:100%;
             height:100%;
         }
-     #gridview {
-           text-align:center;
-        }
-
-    div.image {
-        margin: 10px;
-        display: inline-block;
-    }
-
-    div.image img {
-        width: 100%;
-        height: auto;
-        border: 1px solid #ccc;
-    }
-
-    div.image img:hover {
-        box-shadow: 0 5px 5px 0 rgba(0,0,0,0.32), 0 0 0 0px rgba(0,0,0,0.16);
-    }
-
-   .row {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 0 4px;
-    }
-
-    /* Create four equal columns that sits next to each other */
-    .column {
-      flex: 25%;
-      max-width: 25%;
-      padding: 0 4px;
-    }
-
-    .column img {
-      margin-top: 8px;
-      vertical-align: middle;
-      width: 100%;
-    }
-
 
     </style>
 </head>
 <body>
 <div class="pages first-page coversheet"></div>
+<div class="page-break"></div>
 <div class="pages">
     <header style="alignment: center;">
         <table style="width: 800px; border: none; text-align: center; font-family: Helvetica; font-weight: bold;">
@@ -217,14 +180,7 @@
         </div>
     </div>
     {{--    Schade foto's--}}
-     <div class="container-fluid" style="margin-top:20px;">
-            <h1 style="text-align:center;color: {{ setting()->get('rapport_headercolor') }};">Schade foto's</h1><br>
-            <div class="row">
 
-            </div><hr noshade style="margin-top:-20px;">
-
-
-        </div>
     {{--    End Schade foto's--}}
     <footer>
         <hr>
@@ -234,6 +190,7 @@
         </div>
     </footer>
 </div>
+<div class="page-break"></div>
 {{--New Pages --}}
 <div class="pages">
     <header>
@@ -272,7 +229,7 @@
         </div>
     </footer>
 </div>
-
+<div class="page-break"></div>
 @foreach($data->rows as $row)
     <div class="pages">
         <header>
@@ -297,31 +254,35 @@
             <tr>
                 <td algin="left" >  {!! $row->data !!}</td>
             </tr>
+            <tr>
+
+                <table style="width: 100%;" border="1">
+                    <tbody>
+                        <tr>
+                         @foreach(\App\Helper::GetImagesForPdf($row->images) as $image)
+
+                            <td class="image-container">
+
+                          <div class="Portfolio"><a href="{{ $image['full'] }}"><img class="card-img" src="{{storage_path('app/library/')}}/{{ $image['thumb'] }}" alt="@if(isset($image['alt'])){{$image['alt']}} @endif"></a>@if(isset($image['alt']))<div class="desc">{{$image['alt']}}</div>@endif</div>
+
+                            </td>
+                          @if($loop->index %2 == 0)
+                            @if($loop->first)
+                          @else
+                            </tr>
+                            <tr>
+                            @endif
+                         @endif
+                        @endforeach
+                        </tr>
+                    </tbody>
+</table>
+        </tr>
         </table>
 
-         <div class="container-fluid" style="margin-top:20px;">
-            <h1 style="text-align:center;color: {{ setting()->get('rapport_headercolor') }};">Schade foto's</h1><br>
-            <div class="row">
-            </div><hr noshade style="margin-top:-20px;">
-            <div class="container">
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active">
-                       @foreach(\App\Helper::GetImagesForPdf($row->images) as $image)
+        <br>
 
-                           @if( $loop->index%3 == 0)
-                            </div>
-                            <div class="tab-pane fade show active">
-                            @endif
-                           <div class="Portfolio"><a href="{{ $image['full'] }}"><img class="card-img" src="{{storage_path('app/library/thumbnails')}}/{{ $image['thumb'] }}" alt="{{$image['alt']}}"></a><div class="desc">{{$image['alt']}}</div></div>
-                           @if($loop->last)
-                            </div>
-                             @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
 
-        </div>
 
         <footer>
             <hr>
@@ -331,6 +292,7 @@
             </div>
         </footer>
     </div>
+    <div class="page-break"></div>
 @endforeach
 
 <div class="pages">

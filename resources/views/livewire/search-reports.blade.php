@@ -11,12 +11,10 @@
                 </div>
             </div>
             <div class="col-sm-6 col-xl-3 offset-xl-6">
-                <select class="custom-select" id="dm-projects-filter" name="dm-projects-filter">
-                    <option value="all">All (6)</option>
-                    <option value="active">Active (3)</option>
-                    <option value="pending">Pending (1)</option>
-                    <option value="planning">Planning (1)</option>
-                    <option value="canceled">Canceled (1)</option>
+                <select wire:model="status" class="custom-select" id="dm-projects-filter" name="dm-projects-filter">
+                    <option value="all">{{__('global.all')}} {{ count(\App\Models\report::all())  }}</option>
+                    <option value="3">{{__('global.Sended')}} {{ count(\App\Models\report::where('status','3')->get())  }}</option>
+                    <option value="1">{{__('global.is_created')}} {{ count(\App\Models\report::where('status','1')->get())  }}</option>
                 </select>
             </div>
         </div>
@@ -56,7 +54,7 @@
                     </div>
                     <div class="block-content bg-body-light text-center">
                         <h3 class="font-size-h4 font-w700 mb-1">
-                            <a href="{{route('rapport.show', $report->id)}}">{{ $report->customer->first_name }} {{ $report->customer->last_name }}</a>
+                            <a href="{{route('rapport.edit', $report->id)}}">{{ $report->customer->first_name }} {{ $report->customer->last_name }}</a>
                         </h3>
                         <h4 class="font-size-h6 text-muted mb-3"></h4>
                         <div class="push">
@@ -66,7 +64,7 @@
                     <div class="block-content block-content-full">
                         <div class="row gutters-tiny">
                             <div class="col-6">
-                                <a class="btn btn-block btn-alt-primary" href="{{ route('rapport.show',$report) }}">
+                                <a class="btn btn-block btn-alt-primary" href="{{ route('rapport.edit',$report) }}">
                                     <i class="fa fa-eye mr-1 opacity-50"></i> {{__('global.view')}}
                                 </a>
                             </div>

@@ -13,7 +13,7 @@ class customers extends Model
     protected $primaryKey = 'id';
 
     public function reports(){
-        return  $this->hasMany(report::class,'id','customer_id');
+        return  $this->hasMany(report::class,'customer_id','id');
     }
 
     public function detials(){

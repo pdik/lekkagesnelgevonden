@@ -27,6 +27,9 @@ Route::get('/', function () {
     return view('landing');
 });
 
+Route::prefix('customers')->group(function () {
+    Route::get('/report/download/{id?}',[\App\Http\Controllers\Api\V1\ReportController::class, 'download'])->name('rapport.download');
+});
 
 Route::group(['middleware' => config('jetstream.middleware', ['web'])], function () {
     if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {
@@ -43,7 +46,10 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
             'rapport' => \App\Http\Controllers\ReportController::class,
             'customers' => \App\Http\Controllers\CustomersController::class
         ]);
-        Route::get('rapport/download/pdf/{id?}',[\App\Http\Controllers\ReportController::class, 'generatPdf'] );
+
+        Route::get('rapport/{id?}/add/item',App\Http\Livewire\Report\AddItem::class)->name('rapport.item.add');
+        Route::post('rapport/{id?}/add/item/store',[\App\Http\Controllers\ReportController::class, 'addItem'])->name('rapport.item.store');
+        Route::get('rapport/download/pdf/{id?}',[\App\Http\Controllers\ReportController::class, 'generatPdf']);
         Route::get('rapport/{id?}/view',[\App\Http\Controllers\ReportController::class, 'show'] );
         Route::middleware(['permission:admin.settings.view'])->group(function () {
 

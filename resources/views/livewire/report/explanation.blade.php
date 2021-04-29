@@ -17,10 +17,6 @@
         @empty
             <h3>{{ __('global.pleaseSelect') }} {{setting()->get('report_item_name') ? : 'Items'}}</h3>
         @endforelse
-            <br>
-        <h2>{{__('global.advice')}}  </h2>
-        <textarea name="advice" class="js-ckeditor5-classic">{{ old('advice',__('global.description')) }}</textarea>
-
     </div>
 </div>
 <script>

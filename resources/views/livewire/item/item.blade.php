@@ -1,7 +1,7 @@
 <div class="content">
     <div class="col-md-12">
 
-<div class="block block-rounded">
+<div class="block block-rounded" >
         <div class="block-header block-header-default">
             <h3 class="block-title">{{__('global.create_new', ['resource'=> __('global.items')])}}</h3>
         </div>

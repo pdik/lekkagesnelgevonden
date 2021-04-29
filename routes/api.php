@@ -20,6 +20,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/users', function () {
         // Matches The "/admin/users" URL
     });
+
+    Route::delete('/report/row/{id?}', [\App\Http\Controllers\Api\V1\ReportRowsController::class,'destroy']);
+    Route::post('/report/{id?}/send', [\App\Http\Controllers\Api\V1\ReportController::class,'send']);
     Route::post('/files/upload', [\App\Http\Controllers\Api\V1\ImageController::class,'upload']); //Upload image
     Route::get('/detials/contact', [\App\Http\Controllers\Api\V1\DetialsController::class,'index']);
 

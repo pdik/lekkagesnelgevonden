@@ -7,15 +7,19 @@ use App\Http\Livewire\Traits\WithUpdate;
 
 use App\Http\Livewire\Traits\WithUpdateValues;
 use App\Models\Items;
+use App\Models\report;
 use Livewire\Component;
+use function Symfony\Component\Translation\t;
+
 class Chooser extends Component
 {
+
 
     /**
      * Selected array
      */
 
-    public $selected = [];
+    public $selected = [], $report_id;
     public $allItems = [];
 
     /**
@@ -32,9 +36,14 @@ class Chooser extends Component
      *
      * @var string
      */
-    public $name = '';
-
-
+    public $name = '', $report;
+     public function mount($items = [], $report = null){
+            $this->allItems =Items::Byname();
+            if(isset($report)){
+                $this->report = report::find($report);
+                $this->allItems =Items::Byname('', $this->report->getRowIds);
+            }
+        }
     /**
      * Render the component.
      *
@@ -108,13 +117,5 @@ class Chooser extends Component
     }
 
 
-      /**
-     * Mount component.
-     *
 
-     */
-    public function mount()
-    {
-         $this->allItems =Items::Byname();
-    }
 }

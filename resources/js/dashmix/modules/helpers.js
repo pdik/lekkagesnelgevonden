@@ -869,7 +869,7 @@ export default class Helpers {
      * </select>
      *
      */
-    static select2() {
+    static select2(modal = null) {
         // Init Select2 (with .js-select2 class)
         jQuery('.js-select2:not(.js-select2-enabled)').each((index, element) => {
             let el = jQuery(element);

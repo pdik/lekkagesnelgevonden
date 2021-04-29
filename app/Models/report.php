@@ -35,4 +35,8 @@ class report extends Model
     public function rows(){
         return $this->hasMany(report_rows::class);
     }
+    public function getRowIds(){
+
+      return $this->hasMany(report_rows::class);
+    }
 }

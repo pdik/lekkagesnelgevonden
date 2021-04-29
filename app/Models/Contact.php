@@ -16,6 +16,6 @@ class Contact extends Model
         return  $this->belongsToMany(customers::class);
     }
     public function options(){
-        return  $this->belongsTo(contact_options::class,'contact_option_id');
+        return  $this->belongsTo(Contact_options::class,'contact_option_id');
     }
 }

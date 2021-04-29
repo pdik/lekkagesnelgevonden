@@ -210,7 +210,7 @@ return [
     'select_crud_placeholder'              => 'Please select one of your CRUDs',
     'select_dt_placeholder'                => 'Please select one of date/time fields',
     'select_users_placeholder'             => 'Please select one of your Users',
-    'send'                                 => 'Send',
+    'send'                                 => 'Verstuur',
     'serial_number'                        => 'Serial number',
     'simple_user'                          => 'Simple user',
     'skype'                                => 'Skype',
@@ -284,5 +284,7 @@ return [
         'kvk'                              => 'kvk'
     ],
     'advice'                               => 'Advies',
-    'uplaud_image'                               => 'Uplaud afbeelding'
+    'uplaud_image'                               => 'Uplaud afbeelding',
+    'saved'                                => 'Opgelsagen',
+    'reports'                              => 'Rapporten'
 ];

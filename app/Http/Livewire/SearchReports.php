@@ -11,7 +11,7 @@ class SearchReports extends Component
 
     public $searchTerm;
     public $page = 1;
-
+    public $status;
 
     protected $paginationTheme = 'bootstrap';
 

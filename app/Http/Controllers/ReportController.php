@@ -6,6 +6,7 @@ use App\Models\customers;
 use App\Models\report;
 use App\Models\report_rows;
 
+use Carbon\Carbon;
 use DOMDocument;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use PDF;
 use QCod\AppSettings\Setting\AppSettings;
+use ReportRows;
+
 class ReportController extends Controller
 {
     /**
@@ -123,20 +126,25 @@ class ReportController extends Controller
      * @param  \App\Models\report  $report
      * @return \Illuminate\Http\Response
      */
-    public function edit(report $report)
+    public function edit($report)
     {
-
-    }
-
-    /**
-     * @param $report report
-     */
-    public function send(report $report)
-    {
-
+        $data['customers'] = customers::all();
+        $data['report'] =   report::find($report);
+        return view('reports.edit', $data);
     }
 
 
+    public function addItem(Request $request){
+        foreach($request['item'] as $item){
+                  report_rows::create([
+                      'method_id'   => $item['id'],
+                      'data'        => $item['data'],
+                      'report_id'   => $request->report_id,
+                      'images'      => $item['files'],
+                  ]);
+              }
+         return redirect()->route('rapport.edit',$request->report_id)->with('status', __('global.report') . ' ' . __('global.saved'));
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -144,9 +152,26 @@ class ReportController extends Controller
      * @param  \App\Models\report  $report
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, report $report)
+    public function update(Request $request, $id)
     {
-        //
+
+       $report = report::find($id);
+       $report->created_at = Carbon::createFromDate($request->date);
+       $report->customer_id = $request->customer_id;
+       $report->updated_at = now();
+       $report->save();
+       foreach ($request->item as $item){
+           if(isset($item['id'])){
+              $row = report_rows::find($item['id']);
+              $row->images = $item['files']; //String of ids
+              $row->method_id = $item['item']; //Item id
+              $row->data = $item['data'];
+              $row->save();
+           }
+       }
+       return redirect()->route('rapport.edit', $report->id)->with('status',__('global.saved'));
+
+
     }
 
     /**
