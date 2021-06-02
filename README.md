@@ -6,4 +6,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Over Lekdetectie
+##Lekkagesnelgevonden
+Een web app om klanten, werk orders en rapporten te beheren.
+gebasseerd op Jetstream
+
